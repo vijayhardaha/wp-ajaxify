@@ -1,0 +1,14 @@
+{
+	"extends": [
+		"@wordpress/stylelint-config/scss",
+		"stylelint-config-property-sort-order-smacss"
+	],
+	"plugins": ["stylelint-order"],
+	"rules": {
+		"function-url-quotes": null,
+		"max-empty-lines": 1,
+		"no-descending-specificity": null,
+		"selector-class-pattern": null,
+		"selector-id-pattern": null
+	}
+}

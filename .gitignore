@@ -1,0 +1,108 @@
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea
+.vscode/*
+project.xml
+project.properties
+.project
+.settings*
+*.sublime-project
+*.sublime-workspace
+.sublimelinterrc
+
+# Grunt
+.grunt
+
+# Sass
+.sass-cache/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Eslint Cache
+.eslintcache
+
+# Environment files
+wp-cli.local.yml
+yarn-error.log
+npm-debug.log
+.pnpm-debug.log
+
+# Build files
+*.sql
+*.swp
+*.zip
+
+# Built packages
+.phpunit.result.cache
+*-performance-results.json
+build-module/
+build-style/
+build-types/
+build/
+coverage/
+dist/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+.cache
+
+# Project files
+node_modules/
+vendor/
+
+# TypeScript files
+tsconfig.tsbuildinfo
+
+# Node Package Dependencies
+package-lock.json
+
+# node-waf configuration
+.lock-wscript
+
+# wp-env config
+.wp-env.override.json
+
+# Unit tests
+tmp/
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Composer
+vendor/
+bin/composer/**/vendor/
+lib/vendor/
+contributors.md
+contributors.html
+composer.lock
+
+# Yarn
+yarn.lock
+
+# Test Results
+test-results.json
+
+# Files related to applying patches
+*.rej
+*.orig
+*.patch
+*.diff
+
+# PHP lint
+phpcs-report.xml

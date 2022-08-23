@@ -1,0 +1,13 @@
+# Files and folders related to build & test tools.
+.idea/
+.vscode/
+build/
+dist/
+node_modules/
+tests/
+vendor/
+
+# Plugin files and folders.
+assets/
+docs/
+includes/

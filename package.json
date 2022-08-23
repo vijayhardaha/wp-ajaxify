@@ -1,0 +1,59 @@
+{
+	"name": "wp-ajaxify",
+	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vijayhardaha/wp-ajaxify.git"
+	},
+	"author": "Vijay Hardaha <https://twitter.com/vijayhardaha>",
+	"license": "GPLv2+",
+	"bugs": {
+		"url": "https://github.com/vijayhardaha/wp-ajaxify/issues"
+	},
+	"homepage": "https://github.com/vijayhardaha/wp-ajaxify#readme",
+	"scripts": {
+		"dev": "gulp watch",
+		"build": "npm run format && gulp build && npm run pot",
+		"pot": "wp i18n make-pot . languages/wp-ajaxify.pot",
+		"format": "npm run fix:css && npm run fix:js && npm run fix:php",
+		"fix:css": "stylelint src/scss --fix",
+		"fix:js": "eslint src/js --fix",
+		"fix:php": "composer run-script format",
+		"lint": "npm run lint:css && npm run lint:js && npm run lint:php",
+		"lint:css": "stylelint src/scss",
+		"lint:js": "eslint src/js",
+		"lint:php": "composer run-script lint",
+		"prelint:php": "composer install --no-interaction"
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config"
+	],
+	"devDependencies": {
+		"@wordpress/browserslist-config": "^4.1.2",
+		"@wordpress/eslint-plugin": "^12.9.0",
+		"@wordpress/prettier-config": "^1.4.0",
+		"@wordpress/stylelint-config": "^20.0.2",
+		"ajaxify": "^8.2.4",
+		"autoprefixer": "^10.4.8",
+		"del": "^6.1.1",
+		"eslint": "^8.22.0",
+		"eslint-plugin-jsdoc": "^39.3.6",
+		"gulp": "^4.0.2",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-clone": "^2.0.1",
+		"gulp-concat": "^2.6.1",
+		"gulp-group-css-media-queries": "^1.2.2",
+		"gulp-plumber": "^1.2.1",
+		"gulp-postcss": "^9.0.1",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^5.1.0",
+		"gulp-strip-css-comments": "^2.0.0",
+		"gulp-terser": "^2.1.0",
+		"merge-stream": "^2.0.0",
+		"postcss-discard-duplicates": "^5.1.0",
+		"sass": "^1.54.5",
+		"stylelint": "^14.11.0",
+		"stylelint-config-property-sort-order-smacss": "^9.0.0",
+		"stylelint-order": "^5.0.0"
+	}
+}

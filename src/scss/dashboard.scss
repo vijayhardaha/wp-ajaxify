@@ -1,0 +1,147 @@
+$black: #000;
+$dark: #23282d;
+$gray: #eee;
+$light-gray: #fafafa;
+$white: #fff;
+
+.wp-ajaxify-settings-page {
+
+	& &__desc {
+
+		span {
+
+			&:not(:last-child) {
+
+				&::after {
+					content: "|";
+					margin: 0 3px;
+				}
+			}
+		}
+
+		a {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+
+	& &__nav {
+
+		.nav-tab-wrapper {
+			border-color: $gray;
+
+			a {
+				margin-right: 7px;
+				margin-left: 0;
+				padding: 10px 20px;
+				border-color: $gray;
+				outline: none;
+				box-shadow: none;
+
+				&:hover {
+					border-color: $light-gray;
+					background-color: $light-gray;
+				}
+			}
+
+			a.nav-tab-active {
+				border-color: $light-gray;
+				background-color: $light-gray;
+			}
+		}
+	}
+
+	& &__content {
+		display: inline-block;
+		width: 100%;
+		margin: 0;
+		border-width: 0 1px 1px 1px;
+		border-style: solid;
+		border-color: $gray;
+		background-color: $white;
+
+		table {
+			margin: 0;
+
+			div.description {
+				display: block;
+				margin-top: 5px;
+				font-size: 13px;
+				line-height: 1.6;
+			}
+
+			code {
+				padding: 2px;
+				font-size: 10px;
+			}
+
+			input[type="number"] {
+				min-width: 80px;
+				padding-right: 0;
+			}
+
+			tr.heading {
+
+				th {
+					margin: 0;
+					padding: 15px 20px;
+					background-color: $light-gray;
+				}
+
+				td {
+					margin: 0;
+					padding: 15px 20px;
+					background-color: $light-gray;
+				}
+				border-bottom: 1px dashed $gray;
+				border-left: 4px solid $dark;
+			}
+
+			tr.submit {
+
+				th {
+					margin: 0;
+					padding: 15px 20px;
+					background-color: $light-gray;
+				}
+
+				td {
+					margin: 0;
+					padding: 15px 20px;
+					background-color: $light-gray;
+				}
+
+				p {
+					margin: 0;
+					padding: 0;
+				}
+			}
+
+			tr {
+
+				th {
+					padding: 15px 20px;
+					border-bottom: 1px dashed $gray;
+				}
+
+				td {
+					padding: 15px 20px;
+					border-bottom: 1px dashed $gray;
+				}
+			}
+		}
+
+		& &__page-content-text {
+			padding: 20px;
+
+			p {
+				margin-top: 0;
+				margin-bottom: 15px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}

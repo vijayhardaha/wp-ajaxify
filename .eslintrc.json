@@ -1,0 +1,21 @@
+{
+	"extends": ["plugin:@wordpress/eslint-plugin/esnext"],
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true
+	},
+	"globals": {
+		"jQuery": true,
+		"es6": true
+	},
+	"rules": {
+		"camelcase": 0,
+		"no-console": 1,
+		"no-unused-expressions": 2,
+		"no-irregular-whitespace": 2,
+		"quotes": [2, "single"],
+		"no-undef": 2,
+		"no-unused-vars": 2
+	}
+}
