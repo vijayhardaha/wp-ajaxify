@@ -20,7 +20,20 @@ class Settings {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+	}
+
+	/**
+	 * Install WP Ajaxify.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function install() {
+		$options = self::get_options_args();
+
+		foreach ( $options as $opt ) {
+			add_option( $opt['key'], $opt['default'], '', 'yes' );
+		}
 	}
 
 	/**
@@ -29,7 +42,7 @@ class Settings {
 	 * @since 1.0.0
 	 * @return array
 	 */
-	public function get_options_args() {
+	public static function get_options_args() {
 		$args = array(
 			array(
 				'key'      => '_wp_ajaxify_enable',
@@ -258,9 +271,9 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function register_settings() {
+	public static function register_settings() {
 		// Get plugin options args.
-		$options = $this->get_options_args();
+		$options = self::get_options_args();
 
 		foreach ( $options as $opt ) {
 			register_setting(

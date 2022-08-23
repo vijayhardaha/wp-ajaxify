@@ -68,23 +68,17 @@ final class Ajaxify {
 	 *
 	 * @since 1.0.0
 	 */
-	private function __construct() {
-		register_activation_hook( WP_AJAXIFY_PLUGIN_FILE, array( $this, 'install' ) );
-
-		$this->load();
-
-		add_action( 'init', array( $this, 'init' ), 0 );
-
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
-		add_filter( 'plugin_action_links_' . WP_AJAXIFY_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ) );
+	public function __construct() {
+		$this->includes();
+		$this->init_hooks();
 	}
 
 	/**
-	 * Load required files.
+	 * Include required core files used in admin and on the frontend.
 	 *
 	 * @since 1.0.0
 	 */
-	private function load() {
+	public function includes() {
 		require_once WP_AJAXIFY_PLUGIN_DIR . 'includes/class-info.php';
 		require_once WP_AJAXIFY_PLUGIN_DIR . 'includes/class-settings.php';
 		require_once WP_AJAXIFY_PLUGIN_DIR . 'includes/class-field.php';
@@ -93,16 +87,15 @@ final class Ajaxify {
 	}
 
 	/**
-	 * Install WP Ajaxify.
+	 * Hook into actions and filters.
 	 *
 	 * @since 1.0.0
 	 */
-	public function install() {
-		$options = $this->settings->get_options_args();
-
-		foreach ( $options as $opt ) {
-			add_option( $opt['key'], $opt['default'], '', 'yes' );
-		}
+	private function init_hooks() {
+		register_activation_hook( WP_AJAXIFY_PLUGIN_FILE, array( '\WP_Ajaxify\Settings', 'install' ) );
+		add_action( 'init', array( $this, 'init' ), 0 );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+		add_filter( 'plugin_action_links_' . WP_AJAXIFY_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ) );
 	}
 
 	/**
@@ -126,16 +119,6 @@ final class Ajaxify {
 	 */
 	public function info() {
 		return $this->info;
-	}
-
-	/**
-	 * Return Settings class object.
-	 *
-	 * @since 1.0.0
-	 * @return Settings
-	 */
-	public function settings() {
-		return $this->settings;
 	}
 
 	/**
@@ -216,7 +199,7 @@ final class Ajaxify {
 	public function plugin_action_links( $actions ) {
 		if ( current_user_can( 'manage_options' ) ) {
 
-			$settings_url = $this->settings->get_tab_url( 'general' );
+			$settings_url = $this->dashboard->get_tab_url( 'general' );
 
 			return array_merge(
 				$actions,
