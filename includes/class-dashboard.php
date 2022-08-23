@@ -231,7 +231,7 @@ class Dashboard {
 				$this->field->yes_no_field(
 					'_wp_ajaxify_enable',
 					array(
-						'label' => __( 'Enable/Disable', 'wp-ajaxify' ),
+						'label' => __( 'Enable Ajaxify', 'wp-ajaxify' ),
 						'desc'  => __( 'Quickly Enable or Disable Ajaxify on the website.', 'wp-ajaxify' ),
 					)
 				);
@@ -250,8 +250,8 @@ class Dashboard {
 					'_wp_ajaxify_selector',
 					array(
 						'label'       => __( 'Links Selectors', 'wp-ajaxify' ),
-						'desc'        => __( 'Selector for links to trigger swapping - not elements to be swapped - i.e. a selection of links (e.g. <code>#page a:not(.no-ajaxy, a[href*=logout], .ajax_add_to_cart), #outside-page a</code>)', 'wp-ajaxify' ),
-						'placeholder' => __( 'e.g. #page a:not(.no-ajaxy, a[href*=logout], .ajax_add_to_cart), #outside-page a', 'wp-ajaxify' ),
+						'desc'        => __( 'Selector for links to trigger swapping - not elements to be swapped - i.e. a selection of links (e.g. <code>#page a:not(.no-ajaxy, a[href*=logout])</code>)', 'wp-ajaxify' ),
+						'placeholder' => __( 'e.g. #page a:not(.no-ajaxy, a[href*=logout])', 'wp-ajaxify' ),
 						'required'    => true,
 					)
 				);
@@ -304,7 +304,6 @@ class Dashboard {
 					'_wp_ajaxify_scrolltop',
 					array(
 						'label'   => __( 'Scroll Top', 'wp-ajaxify' ),
-						'desc'    => __( 'Refresh the page even if link clicked is current page.', 'wp-ajaxify' ),
 						'options' => array(
 							's'     => __( 'Smooth Scroll', 'wp-ajaxify' ),
 							'true'  => __( 'Always Scroll', 'wp-ajaxify' ),
@@ -376,7 +375,7 @@ class Dashboard {
 					'_wp_ajaxify_inlinehints',
 					array(
 						'label'       => __( 'Inline Hints', 'wp-ajaxify' ),
-						'desc'        => __( 'If matched in any inline scripts - only these are executed - set "inline" to false beforehand. Leave empty to disable it.', 'wp-ajaxify' ),
+						'desc'        => __( 'If matched in any inline scripts - only these are executed - set "inline" to false beforehand.', 'wp-ajaxify' ),
 						'placeholder' => __( 'Write one value per line.', 'wp-ajaxify' ),
 					)
 				);
@@ -385,7 +384,7 @@ class Dashboard {
 					'_wp_ajaxify_inlineskip',
 					array(
 						'label'       => __( 'Inline Skip', 'wp-ajaxify' ),
-						'desc'        => __( 'If matched in any inline scripts - these are NOT are executed - set "inline" to true beforehand. Leave empty to disable it.', 'wp-ajaxify' ),
+						'desc'        => __( 'If matched in any inline scripts - these are NOT are executed - set "inline" to true beforehand.', 'wp-ajaxify' ),
 						'placeholder' => __( 'Write one value per line.', 'wp-ajaxify' ),
 					)
 				);
@@ -478,8 +477,8 @@ class Dashboard {
 				$this->field->yes_no_field(
 					'_wp_ajaxify_loader_enable',
 					array(
-						'label' => __( 'Enable/Disable', 'wp-ajaxify' ),
-						'desc'  => __( 'Loader will appear on each page before Pronto Request.', 'wp-ajaxify' ),
+						'label' => __( 'Enable Loader', 'wp-ajaxify' ),
+						'desc'  => __( 'If Enabled, Selected Loader type will appear on each page before Pronto Request.', 'wp-ajaxify' ),
 					)
 				);
 
@@ -560,16 +559,16 @@ class Dashboard {
 					array(
 						'label' => __( 'Ajaxify JS URL', 'wp-ajaxify' ),
 						'desc'  => sprintf(
-							'%s<br/>%s',
-							__( 'If you want to use or test a different version of ajaxify.js then you can use a CDN or External url here to be load in frontend.', 'wp-ajaxify' ),
-							'<a href="https://cdnjs.com/libraries/ajaxify" target="_blank">' . __( 'Get Ajaxify.js CDN Urls', 'wp-ajaxify' ) . '</a>'
+							'%s<br/>%s.',
+							__( 'If you want to use or test a different version of Ajaxify.js then you can use a CDN or External Url to be used in frontend.', 'wp-ajaxify' ),
+							__( 'You can find Ajaxify.js cdn urls', 'wp-ajaxify' ) . ' <a href="https://cdnjs.com/libraries/ajaxify" target="_blank">' . __( 'here', 'wp-ajaxify' ) . '</a>'
 						),
 					)
 				);
 				?>
 
 				<tr class="heading">
-					<th><?php esc_html_e( 'Misc', 'wp-ajaxify' ); ?></th>
+					<th><?php esc_html_e( 'Extras', 'wp-ajaxify' ); ?></th>
 					<td><?php esc_html_e( 'Other plugin settings.', 'wp-ajaxify' ); ?></td>
 				</tr>
 

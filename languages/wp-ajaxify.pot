@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-23T11:28:01+00:00\n"
+"POT-Creation-Date: 2022-08-23T16:22:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wp-ajaxify\n"
@@ -64,7 +64,6 @@ msgid "Appearance"
 msgstr ""
 
 #: includes/class-dashboard.php:71
-#: includes/class-dashboard.php:572
 msgid "Misc"
 msgstr ""
 
@@ -101,8 +100,7 @@ msgid "Basic settings for the Ajaxify."
 msgstr ""
 
 #: includes/class-dashboard.php:234
-#: includes/class-dashboard.php:481
-msgid "Enable/Disable"
+msgid "Enable Ajaxify"
 msgstr ""
 
 #: includes/class-dashboard.php:235
@@ -126,11 +124,11 @@ msgid "Links Selectors"
 msgstr ""
 
 #: includes/class-dashboard.php:253
-msgid "Selector for links to trigger swapping - not elements to be swapped - i.e. a selection of links (e.g. <code>#page a:not(.no-ajaxy, a[href*=logout], .ajax_add_to_cart), #outside-page a</code>)"
+msgid "Selector for links to trigger swapping - not elements to be swapped - i.e. a selection of links (e.g. <code>#page a:not(.no-ajaxy, a[href*=logout])</code>)"
 msgstr ""
 
 #: includes/class-dashboard.php:254
-msgid "e.g. #page a:not(.no-ajaxy, a[href*=logout], .ajax_add_to_cart), #outside-page a"
+msgid "e.g. #page a:not(.no-ajaxy, a[href*=logout])"
 msgstr ""
 
 #: includes/class-dashboard.php:262
@@ -158,7 +156,6 @@ msgid "Refresh"
 msgstr ""
 
 #: includes/class-dashboard.php:280
-#: includes/class-dashboard.php:307
 msgid "Refresh the page even if link clicked is current page."
 msgstr ""
 
@@ -179,7 +176,7 @@ msgid "In Milliseconds - Delay of Pronto request."
 msgstr ""
 
 #: includes/class-dashboard.php:297
-#: includes/class-dashboard.php:321
+#: includes/class-dashboard.php:320
 msgid "(e.g. 1000)"
 msgstr ""
 
@@ -187,264 +184,276 @@ msgstr ""
 msgid "Scroll Top"
 msgstr ""
 
-#: includes/class-dashboard.php:309
+#: includes/class-dashboard.php:308
 msgid "Smooth Scroll"
 msgstr ""
 
-#: includes/class-dashboard.php:310
+#: includes/class-dashboard.php:309
 msgid "Always Scroll"
 msgstr ""
 
-#: includes/class-dashboard.php:311
+#: includes/class-dashboard.php:310
 msgid "No Scroll"
 msgstr ""
 
-#: includes/class-dashboard.php:319
+#: includes/class-dashboard.php:318
 msgid "Scroll Delay"
 msgstr ""
 
-#: includes/class-dashboard.php:320
+#: includes/class-dashboard.php:319
 msgid "Minimal delay on all scroll effects in Milliseconds, useful in case of e.g. smooth scroll"
 msgstr ""
 
-#: includes/class-dashboard.php:330
+#: includes/class-dashboard.php:329
 msgid "Body Classes"
 msgstr ""
 
-#: includes/class-dashboard.php:331
+#: includes/class-dashboard.php:330
 msgid "Copy body attributes from target page, set to \"false\" to disable."
 msgstr ""
 
-#: includes/class-dashboard.php:337
+#: includes/class-dashboard.php:336
 msgid "Script & Style"
 msgstr ""
 
-#: includes/class-dashboard.php:338
+#: includes/class-dashboard.php:337
 msgid "Scripts, Styles & Prefetch handling configurations."
 msgstr ""
 
-#: includes/class-dashboard.php:345
+#: includes/class-dashboard.php:344
 msgid "Deltas"
 msgstr ""
 
-#: includes/class-dashboard.php:346
+#: includes/class-dashboard.php:345
 msgid "True = deltas loaded, False = all scripts loaded"
 msgstr ""
 
-#: includes/class-dashboard.php:353
+#: includes/class-dashboard.php:352
 msgid "Async"
 msgstr ""
 
-#: includes/class-dashboard.php:354
+#: includes/class-dashboard.php:353
 msgid "Default async value for dynamically inserted external scripts, False = synchronous / True = asynchronous"
 msgstr ""
 
-#: includes/class-dashboard.php:361
+#: includes/class-dashboard.php:360
 msgid "Always Hints"
 msgstr ""
 
-#: includes/class-dashboard.php:362
+#: includes/class-dashboard.php:361
 msgid "If matched in any external script URL - these are always loaded on every page load. Leave empty to disable it."
 msgstr ""
 
-#: includes/class-dashboard.php:363
+#: includes/class-dashboard.php:362
 msgid "Write one script url per line."
 msgstr ""
 
-#: includes/class-dashboard.php:370
+#: includes/class-dashboard.php:369
 msgid "Inline"
 msgstr ""
 
-#: includes/class-dashboard.php:371
+#: includes/class-dashboard.php:370
 msgid "True = all inline scripts loaded, False = only specific inline scripts are loaded."
 msgstr ""
 
-#: includes/class-dashboard.php:378
+#: includes/class-dashboard.php:377
 msgid "Inline Hints"
 msgstr ""
 
-#: includes/class-dashboard.php:379
-msgid "If matched in any inline scripts - only these are executed - set \"inline\" to false beforehand. Leave empty to disable it."
+#: includes/class-dashboard.php:378
+msgid "If matched in any inline scripts - only these are executed - set \"inline\" to false beforehand."
 msgstr ""
 
-#: includes/class-dashboard.php:380
-#: includes/class-dashboard.php:389
+#: includes/class-dashboard.php:379
+#: includes/class-dashboard.php:388
 msgid "Write one value per line."
 msgstr ""
 
-#: includes/class-dashboard.php:387
+#: includes/class-dashboard.php:386
 msgid "Inline Skip"
 msgstr ""
 
-#: includes/class-dashboard.php:388
-msgid "If matched in any inline scripts - these are NOT are executed - set \"inline\" to true beforehand. Leave empty to disable it."
+#: includes/class-dashboard.php:387
+msgid "If matched in any inline scripts - these are NOT are executed - set \"inline\" to true beforehand."
 msgstr ""
 
-#: includes/class-dashboard.php:396
+#: includes/class-dashboard.php:395
 msgid "Inline Append"
 msgstr ""
 
-#: includes/class-dashboard.php:397
+#: includes/class-dashboard.php:396
 msgid "Append scripts to the main content element, instead of \"eval\"-ing them"
 msgstr ""
 
-#: includes/class-dashboard.php:404
+#: includes/class-dashboard.php:403
 msgid "Intercept Events"
 msgstr ""
 
-#: includes/class-dashboard.php:405
+#: includes/class-dashboard.php:404
 msgid "Intercept events that are fired only on classic page load and simulate their trigger on ajax page load (\"DOMContentLoaded\")"
 msgstr ""
 
-#: includes/class-dashboard.php:412
+#: includes/class-dashboard.php:411
 msgid "Style"
 msgstr ""
 
-#: includes/class-dashboard.php:413
+#: includes/class-dashboard.php:412
 msgid "True = all style tags in the head loaded, False = style tags on target page ignored."
 msgstr ""
 
-#: includes/class-dashboard.php:420
+#: includes/class-dashboard.php:419
 msgid "Prefetch Off"
 msgstr ""
 
-#: includes/class-dashboard.php:421
+#: includes/class-dashboard.php:420
 msgid "Plugin pre-fetches pages on hoverIntent - true = set off completely // strings - separated by \", \" - hints to select out."
 msgstr ""
 
-#: includes/class-dashboard.php:427
+#: includes/class-dashboard.php:426
 msgid "Debugging & Advanced"
 msgstr ""
 
-#: includes/class-dashboard.php:428
+#: includes/class-dashboard.php:427
 msgid "Debugging and Advanced settings for the Ajaxify."
 msgstr ""
 
-#: includes/class-dashboard.php:435
+#: includes/class-dashboard.php:434
 msgid "Debugging"
 msgstr ""
 
-#: includes/class-dashboard.php:436
+#: includes/class-dashboard.php:435
 msgid "Enable/Disable logs in console for debugging."
 msgstr ""
 
-#: includes/class-dashboard.php:443
+#: includes/class-dashboard.php:442
 msgid "Passcount"
 msgstr ""
 
-#: includes/class-dashboard.php:444
+#: includes/class-dashboard.php:443
 msgid "Show number of pass for debugging."
 msgstr ""
 
-#: includes/class-dashboard.php:451
+#: includes/class-dashboard.php:450
 msgid "Memory Off"
 msgstr ""
 
-#: includes/class-dashboard.php:452
+#: includes/class-dashboard.php:451
 msgid "Separated by \", \" - if matched in any URLs - only these are NOT executed - set to \"true\" to disable memory completely."
 msgstr ""
 
-#: includes/class-dashboard.php:473
+#: includes/class-dashboard.php:472
 msgid "Loader"
 msgstr ""
 
-#: includes/class-dashboard.php:474
+#: includes/class-dashboard.php:473
 msgid "Settings for the ajaxify loader."
 msgstr ""
 
-#: includes/class-dashboard.php:482
-msgid "Loader will appear on each page before Pronto Request."
+#: includes/class-dashboard.php:480
+msgid "Enable Loader"
 msgstr ""
 
-#: includes/class-dashboard.php:489
+#: includes/class-dashboard.php:481
+msgid "If Enabled, Selected Loader type will appear on each page before Pronto Request."
+msgstr ""
+
+#: includes/class-dashboard.php:488
 msgid "Loader Type"
 msgstr ""
 
-#: includes/class-dashboard.php:490
+#: includes/class-dashboard.php:489
 msgid "Choose the loader type. If you choose Custom Loader then put your loader HTML in Loader HTML field."
 msgstr ""
 
-#: includes/class-dashboard.php:492
+#: includes/class-dashboard.php:491
 msgid "Type 1"
 msgstr ""
 
-#: includes/class-dashboard.php:493
+#: includes/class-dashboard.php:492
 msgid "Type 2"
 msgstr ""
 
-#: includes/class-dashboard.php:494
+#: includes/class-dashboard.php:493
 msgid "Type 3"
 msgstr ""
 
-#: includes/class-dashboard.php:495
+#: includes/class-dashboard.php:494
 msgid "Type 4"
 msgstr ""
 
-#: includes/class-dashboard.php:496
+#: includes/class-dashboard.php:495
 msgid "Custom Loader"
 msgstr ""
 
-#: includes/class-dashboard.php:504
+#: includes/class-dashboard.php:503
 msgid "Loader HTML"
 msgstr ""
 
-#: includes/class-dashboard.php:505
+#: includes/class-dashboard.php:504
 msgid "Put your custom loader HTML here. Write CSS for loader separatly in theme files or in WordPress Additional CSS."
 msgstr ""
 
-#: includes/class-dashboard.php:512
+#: includes/class-dashboard.php:511
 msgid "Primary Color"
 msgstr ""
 
-#: includes/class-dashboard.php:513
+#: includes/class-dashboard.php:512
 msgid "Primary color for loader usage. Default: #2872fa"
 msgstr ""
 
-#: includes/class-dashboard.php:520
+#: includes/class-dashboard.php:519
 msgid "Overlay Color"
 msgstr ""
 
-#: includes/class-dashboard.php:521
+#: includes/class-dashboard.php:520
 msgid "Overlay background color for loader usage. Default: #000000"
 msgstr ""
 
-#: includes/class-dashboard.php:528
+#: includes/class-dashboard.php:527
 msgid "Overlay Opacity"
 msgstr ""
 
-#: includes/class-dashboard.php:529
+#: includes/class-dashboard.php:528
 msgid "Control the overlay opacity. Default: 0.35"
 msgstr ""
 
-#: includes/class-dashboard.php:553
+#: includes/class-dashboard.php:552
 msgid "Version Integration"
 msgstr ""
 
-#: includes/class-dashboard.php:554
+#: includes/class-dashboard.php:553
 msgid "Settings for different Ajaxify.js version integration & testing."
 msgstr ""
 
-#: includes/class-dashboard.php:561
+#: includes/class-dashboard.php:560
 msgid "Ajaxify JS URL"
 msgstr ""
 
+#: includes/class-dashboard.php:563
+msgid "If you want to use or test a different version of Ajaxify.js then you can use a CDN or External Url to be used in frontend."
+msgstr ""
+
 #: includes/class-dashboard.php:564
-msgid "If you want to use or test a different version of ajaxify.js then you can use a CDN or External url here to be load in frontend."
+msgid "You can find Ajaxify.js cdn urls"
 msgstr ""
 
-#: includes/class-dashboard.php:565
-msgid "Get Ajaxify.js CDN Urls"
+#: includes/class-dashboard.php:564
+msgid "here"
 msgstr ""
 
-#: includes/class-dashboard.php:573
+#: includes/class-dashboard.php:571
+msgid "Extras"
+msgstr ""
+
+#: includes/class-dashboard.php:572
 msgid "Other plugin settings."
 msgstr ""
 
-#: includes/class-dashboard.php:580
+#: includes/class-dashboard.php:579
 msgid "Uninstall WP Ajaxify"
 msgstr ""
 
-#: includes/class-dashboard.php:581
+#: includes/class-dashboard.php:580
 msgid "Remove ALL WP Ajaxify data upon plugin deletion. All settings will be unrecoverable."
 msgstr ""
 

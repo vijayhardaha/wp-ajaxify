@@ -42,14 +42,14 @@ class Settings {
 				'key'      => '_wp_ajaxify_elements',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'string',
-				'default'  => 'body, #wpadminbar',
+				'default'  => 'body',
 				'callback' => 'sanitize_text_field',
 			),
 			array(
 				'key'      => '_wp_ajaxify_selector',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'string',
-				'default'  => 'body a:not(.no-ajaxy)',
+				'default'  => 'a:not(.no-ajaxy, a[href*=logout])',
 				'callback' => 'sanitize_text_field',
 			),
 			array(

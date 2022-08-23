@@ -8,7 +8,6 @@
 
 # Plugin files and folders.
 assets/
-docs/
 includes/
 src/js/*
 !src/js/ajaxify.js

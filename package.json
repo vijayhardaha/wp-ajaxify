@@ -23,7 +23,9 @@
 		"lint:css": "stylelint src/scss",
 		"lint:js": "eslint src/js",
 		"lint:php": "composer run-script lint",
-		"prelint:php": "composer install --no-interaction"
+		"prelint:php": "composer install --no-interaction",
+		"prezip": "rm -rf wp-ajaxify.zip",
+		"zip": "zip -r wp-ajaxify.zip ./*.php includes assets languages"
 	},
 	"browserslist": [
 		"extends @wordpress/browserslist-config"
