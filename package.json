@@ -13,7 +13,7 @@
 	"homepage": "https://github.com/vijayhardaha/wp-ajaxify#readme",
 	"scripts": {
 		"dev": "gulp watch",
-		"build": "npm run format && gulp build && npm run pot",
+		"build": "npm run format && gulp build",
 		"pot": "wp i18n make-pot . languages/wp-ajaxify.pot",
 		"format": "npm run fix:css && npm run fix:js && npm run fix:php",
 		"fix:css": "stylelint src/scss --fix",
