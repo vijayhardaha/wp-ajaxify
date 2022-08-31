@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress Coding Standards">
-	<description>Custom Plugin dev PHP_CodeSniffer</description>
-
 	<file>.</file>
 
 	<!-- Exclude dependency related files and generated files from being scanned. -->
@@ -16,17 +14,17 @@
     <arg value="-colors"/>
 
 	<!-- Show progress, show the error codes for each message (source). -->
-	<arg value="ps" />
+	<arg value="ps"/>
 
 	<!-- Strip the filepaths in reports down to the relevant bit. -->
-	<arg name="basepath" value="./" />
+	<arg name="basepath" value="./"/>
 
 	<!-- Check up to 8 files simultaneously. -->
-	<arg name="parallel" value="8" />
+	<arg name="parallel" value="8"/>
 
 	<!-- Configs -->
-	<config name="minimum_supported_wp_version" value="5.6" />
-	<config name="testVersion" value="7.0-" />
+	<config name="minimum_supported_wp_version" value="5.8"/>
+	<config name="testVersion" value="7.0-"/>
 
 	<rule ref="PHPCompatibilityWP">
 		<exclude-pattern>tests/</exclude-pattern>
@@ -37,7 +35,7 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="wp-ajaxify" />
+			<property name="text_domain" type="array" value="wp-ajaxify"/>
 		</properties>
 	</rule>
 
@@ -61,13 +59,13 @@
 
 	<rule ref="WordPress.Security.ValidatedSanitizedInput">
 		<properties>
-			<property name="customSanitizingFunctions" type="array" value="" />
+			<property name="customSanitizingFunctions" type="array" value=""/>
 		</properties>
 	</rule>
 
 	<rule ref="WordPress.Security.EscapeOutput">
 		<properties>
-			<property name="customEscapingFunctions" type="array" value="" />
+			<property name="customEscapingFunctions" type="array" value=""/>
 		</properties>
 	</rule>
 </ruleset>

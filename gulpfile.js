@@ -1,95 +1,89 @@
-/* eslint-disable no-console */
-const gulp = require( 'gulp' ),
-	autoprefixer = require( 'autoprefixer' ),
-	cleanCSS = require( 'gulp-clean-css' ),
-	clone = require( 'gulp-clone' ),
-	concat = require( 'gulp-concat' ),
-	del = require( 'del' ),
-	discardDuplicates = require( 'postcss-discard-duplicates' ),
-	gcmq = require( 'gulp-group-css-media-queries' ),
-	merge = require( 'merge-stream' ),
-	plumber = require( 'gulp-plumber' ),
-	postcss = require( 'gulp-postcss' ),
-	rename = require( 'gulp-rename' ),
-	sass = require( 'gulp-sass' )( require( 'sass' ) ),
-	strip = require( 'gulp-strip-css-comments' ),
-	uglify = require( 'gulp-terser' );
+/**
+ * Define required packages.
+ */
+const gulp = require( 'gulp' );
+const autoprefixer = require( 'autoprefixer' );
+const cleancss = require( 'gulp-clean-css' );
+const clone = require( 'gulp-clone' );
+const concat = require( 'gulp-concat' );
+const del = require( 'del' );
+const duplicates = require( 'postcss-discard-duplicates' );
+const gcmq = require( 'gulp-group-css-media-queries' );
+const merge = require( 'merge-stream' );
+const plumber = require( 'gulp-plumber' );
+const postcss = require( 'gulp-postcss' );
+const rename = require( 'gulp-rename' );
+const sass = require( 'gulp-sass' )( require( 'sass' ) );
+const terser = require( 'gulp-terser' );
 
-const config = {
-	destPath: 'assets',
-	destPathCSS: 'assets/css/',
-	destPathJS: 'assets/js/',
-	cssOutputStyle: 'expanded', // compressed, expanded,
-	cssFormatStyle: 'beautify',
+/**
+ * Paths to base asset directories. With trailing slashes.
+ * - `paths.src` - Path to the source files. Default: `src/`
+ * - `paths.dist` - Path to the build directory. Default: `assets/`
+ */
+const paths = {
+	src: 'src/',
+	dist: 'assets/',
 };
 
 /**
- * Build CSS Files.
+ * Build CSS.
  *
  * @param {Function} done
  */
 const buildCSS = ( done ) => {
-	const styles = {
+	const entries = {
 		dashboard: [ 'src/scss/dashboard.scss' ],
 		frontend: [ 'src/scss/frontend.scss' ],
 	};
 
-	for ( const [ name, path ] of Object.entries( styles ) ) {
+	for ( const [ name, path ] of Object.entries( entries ) ) {
 		const baseSource = gulp
 			.src( path )
 			.pipe( plumber() )
-			.pipe( sass( { outputStyle: config.cssOutputStyle } ) )
-			.pipe( strip() )
+			.pipe( sass( { outputStyle: 'expanded' } ) )
 			.pipe( gcmq() )
 			.pipe( concat( 'merged.css' ) )
-			.pipe( postcss( [ discardDuplicates(), autoprefixer() ] ) )
-			.pipe( cleanCSS( { format: config.cssFormatStyle } ) )
-			.pipe(
-				rename( {
-					basename: name,
-				} )
-			);
+			.pipe( postcss( [ duplicates(), autoprefixer() ] ) )
+			.pipe( cleancss( { format: 'beautify' } ) )
+			.pipe( rename( { basename: name } ) );
 
 		const minified = baseSource
 			.pipe( clone() )
-			.pipe( cleanCSS() )
+			.pipe( cleancss() )
 			.pipe( rename( { suffix: '.min' } ) );
 
-		merge( baseSource, minified ).pipe( gulp.dest( config.destPathCSS ) );
+		merge( baseSource, minified ).pipe( gulp.dest( paths.dist + 'css' ) );
 	}
 
 	done();
 };
 
 /**
- * Build JS Files.
+ * Build JS.
  *
  * @param {Function} done
  */
 const buildJS = ( done ) => {
-	const styles = {
+	const entries = {
 		dashboard: [ 'src/js/dashboard.js' ],
 		ajaxify: [ 'src/js/ajaxify.js' ],
 		frontend: [ 'src/js/frontend.js' ],
 	};
 
-	for ( const [ name, path ] of Object.entries( styles ) ) {
+	for ( const [ name, path ] of Object.entries( entries ) ) {
 		const baseSource = gulp
 			.src( path )
 			.pipe( plumber() )
 			.pipe( concat( 'merged.js' ) )
-			.pipe(
-				rename( {
-					basename: name,
-				} )
-			);
+			.pipe( rename( { basename: name } ) );
 
 		const minified = baseSource
 			.pipe( clone() )
-			.pipe( uglify() )
+			.pipe( terser() )
 			.pipe( rename( { suffix: '.min' } ) );
 
-		merge( baseSource, minified ).pipe( gulp.dest( config.destPathJS ) );
+		merge( baseSource, minified ).pipe( gulp.dest( paths.dist + 'js' ) );
 	}
 
 	done();
@@ -100,10 +94,11 @@ const buildJS = ( done ) => {
  *
  * @param {Function} done
  */
-function cleanBuild( done ) {
-	del.sync( config.destPath );
+const cleanAssets = ( done ) => {
+	del.sync( paths.dist );
+
 	done();
-}
+};
 
 /**
  * Runs parallel tasks for .js compiling with webpack and .scss compiling
@@ -111,11 +106,13 @@ function cleanBuild( done ) {
  * @param {Function} done
  */
 const watchAssets = ( done ) => {
-	gulp.watch( 'src/**/*.scss', gulp.series( buildCSS ) );
-	gulp.watch( 'src/**/*.js', gulp.series( buildJS ) );
+	gulp.watch( 'src/scss/**/*.scss', gulp.series( buildCSS ) );
+	gulp.watch( 'src/js/**/*.js', gulp.series( buildJS ) );
 
 	done();
 };
 
-gulp.task( 'build', gulp.series( cleanBuild, buildCSS, buildJS ) );
-gulp.task( 'watch', gulp.series( cleanBuild, buildCSS, buildJS, watchAssets ) );
+gulp.task( 'css', gulp.series( buildCSS ) );
+gulp.task( 'js', gulp.series( buildJS ) );
+gulp.task( 'build', gulp.series( cleanAssets, buildCSS, buildJS ) );
+gulp.task( 'watch', gulp.series( watchAssets ) );
