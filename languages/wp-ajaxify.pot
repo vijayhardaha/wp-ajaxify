@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Ajaxify 1.0.0\n"
+"Project-Id-Version: WP Ajaxify 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ajaxify\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-23T16:22:30+00:00\n"
+"POT-Creation-Date: 2022-08-31T05:42:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wp-ajaxify\n"
@@ -19,7 +19,7 @@ msgid "WP Ajaxify"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://github.com/vijayhardaha/wp-ajaxify"
+msgid "https://github.com/vijayhardaha/wp-ajaxify/"
 msgstr ""
 
 #. Description of the plugin
@@ -31,27 +31,27 @@ msgid "Vijay Hardaha"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://github.com/vijayhardaha"
+msgid "https://github.com/vijayhardaha/"
 msgstr ""
 
-#: includes/class-ajaxify.php:198
+#: includes/class-ajaxify.php:181
 #: includes/class-dashboard.php:151
 msgid "Support"
 msgstr ""
 
-#: includes/class-ajaxify.php:199
+#: includes/class-ajaxify.php:182
 #: includes/class-dashboard.php:155
 #: includes/class-dashboard.php:156
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-ajaxify.php:200
+#: includes/class-ajaxify.php:183
 #: includes/class-dashboard.php:160
 #: includes/class-dashboard.php:161
 msgid "Changelog"
 msgstr ""
 
-#: includes/class-ajaxify.php:223
+#: includes/class-ajaxify.php:206
 msgid "Settings"
 msgstr ""
 
