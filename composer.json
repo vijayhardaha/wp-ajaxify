@@ -1,5 +1,5 @@
 {
-	"license": "GPL-2.0-or-later",
+	"license": "GPLv2+",
 	"require": {
 		"php": ">=7.0"
 	},
