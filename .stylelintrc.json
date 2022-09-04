@@ -6,7 +6,7 @@
 	"plugins": ["stylelint-order"],
 	"rules": {
 		"max-line-length": 200,
-    "no-empty-source": null,
+		"no-empty-source": null,
 		"function-url-quotes": null,
 		"max-empty-lines": 1,
 		"no-descending-specificity": null,

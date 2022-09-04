@@ -1,4 +1,4 @@
-# Files and folders related to build & test tools.
+# Files & Directories related to build & test tools.
 .idea/
 /build
 /dist
@@ -6,8 +6,11 @@
 /tests
 /vendor
 
-# Plugin files and folders.
+# Project Files & Directories.
 assets/
 includes/
-src/js/*
-!src/js/ajaxify.js
+languages/
+src/
+**/*.js
+**/*.css
+**/*.scss

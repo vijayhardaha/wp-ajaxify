@@ -66,8 +66,8 @@ const buildCSS = ( done ) => {
  */
 const buildJS = ( done ) => {
 	const entries = {
+		ajaxify: [ 'node_modules/ajaxify/ajaxify.js' ],
 		dashboard: [ 'src/js/dashboard.js' ],
-		ajaxify: [ 'src/js/ajaxify.js' ],
 		frontend: [ 'src/js/frontend.js' ],
 	};
 

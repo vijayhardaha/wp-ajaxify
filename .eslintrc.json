@@ -11,11 +11,11 @@
 	},
 	"rules": {
 		"camelcase": 0,
-		"no-console": 1,
-		"no-unused-expressions": 2,
-		"no-irregular-whitespace": 2,
-		"quotes": [2, "single"],
-		"no-undef": 2,
-		"no-unused-vars": 2
+		"no-console": 0,
+		"no-alert": 0,
+		"no-unused-expressions": 1,
+		"no-irregular-whitespace": 1,
+		"no-undef": 1,
+		"no-unused-vars": 1
 	}
 }
