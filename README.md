@@ -12,10 +12,10 @@ Check our [Documentation](docs/documentation.md) page to know details on Plugin 
 
 ## Features
 
-- Provides clean and simple settings dashboard to control configurations.
-- Provides pre-loader to show before each page render.
-- Allows using custom preloader through custom Loader HTML.
-- Ability to implement different versions of Ajaxify.js
+-   Provides clean and simple settings dashboard to control configurations.
+-   Provides pre-loader to show before each page render.
+-   Allows using custom preloader through custom Loader HTML.
+-   Ability to implement different versions of Ajaxify.js
 
 ## Install
 

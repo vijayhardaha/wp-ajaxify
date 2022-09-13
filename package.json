@@ -37,6 +37,7 @@
 	"devDependencies": {
 		"@wordpress/browserslist-config": "^5.0.0",
 		"@wordpress/eslint-plugin": "^13.0.0",
+		"@wordpress/prettier-config": "^2.0.0",
 		"@wordpress/stylelint-config": "^21.0.0",
 		"ajaxify": "^8.2.5",
 		"autoprefixer": "^10.4.8",

@@ -9,5 +9,7 @@
 
 # Project Files & Directories.
 assets/
-docs/
 includes/
+languages/
+src/js/vendors/
+src/js/**/*.min.js
