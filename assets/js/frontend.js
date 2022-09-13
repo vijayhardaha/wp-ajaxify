@@ -1,7 +1,8 @@
+/* eslint-disable no-nested-ternary */
 /* global wp_ajaxify_params, Ajaxify */
 
 'use strict';
-( function( ) {
+( function( $, wap ) {
 	/**
 	 * Return Loader html.
 	 *
@@ -18,7 +19,7 @@
 				loader_html += '<div class="wp-ajaxify-loader__content"><div></div></div>';
 				break;
 			case 'custom':
-				loader_html += '<div class="wp-ajaxify-loader__content">' + wp_ajaxify_params.loader.html + '</div>';
+				loader_html += '<div class="wp-ajaxify-loader__content">' + wap.loader.html + '</div>';
 				break;
 			case 'type-1':
 			default:
@@ -35,37 +36,39 @@
 	 * @return {string} Loader type.
 	 */
 	function wp_ajaxify_get_loader_type() {
-		const type = wp_ajaxify_params.loader.type;
-		return 'custom' === type && 0 === wp_ajaxify_params.loader.html.length ? 'type-1' : type;
+		const type = wap.loader.type;
+		return 'custom' === type && 0 === wap.loader.html.length ? 'type-1' : type;
 	}
 
-	new Ajaxify( {
-		elements: wp_ajaxify_params.elements,
-		selector: wp_ajaxify_params.selector,
-		forms: wp_ajaxify_params.forms,
-		canonical: wp_ajaxify_params.canonical,
-		refresh: wp_ajaxify_params.refresh,
-		requestDelay: wp_ajaxify_params.requestDelay,
-		scrolltop: wp_ajaxify_params.scrolltop,
-		scrollDelay: wp_ajaxify_params.scrollDelay,
-		bodyClasses: wp_ajaxify_params.bodyClasses,
-		deltas: wp_ajaxify_params.deltas,
-		asyncdef: wp_ajaxify_params.asyncdef,
-		alwayshints: wp_ajaxify_params.alwayshints,
-		inline: wp_ajaxify_params.inline,
-		inlinehints: wp_ajaxify_params.inlinehints,
-		inlineskip: wp_ajaxify_params.inlineskip,
-		inlineappend: wp_ajaxify_params.inlineappend,
-		intevents: wp_ajaxify_params.intevents,
-		style: wp_ajaxify_params.style,
-		prefetchoff: wp_ajaxify_params.prefetchoff,
-		verbosity: wp_ajaxify_params.verbosity,
-		memoryoff: wp_ajaxify_params.memoryoff,
-		passCount: wp_ajaxify_params.passCount,
+	const args = {
+		elements: wap.elements,
+		selector: wap.selector,
+		forms: wap.forms === '' ? false : wap.forms,
+		canonical: wap.canonical ? true : false,
+		refresh: wap.refresh ? true : false,
+		requestDelay: parseInt( wap.requestDelay, 10 ),
+		scrolltop: wap.scrolltop === 's' ? 's' : ( wap.scrolltop ? true : false ),
+		scrollDelay: parseInt( wap.scrollDelay, 10 ),
+		bodyClasses: wap.bodyClasses ? true : false,
+		deltas: wap.deltas ? true : false,
+		asyncdef: wap.asyncdef ? true : false,
+		alwayshints: wap.alwayshints,
+		inline: wap.inline ? true : false,
+		inlinehints: wap.inlinehints,
+		inlineskip: wap.inlineskip,
+		inlineappend: wap.inlineappend ? true : false,
+		intevents: wap.intevents ? true : false,
+		style: wap.style ? true : false,
+		prefetchoff: wap.prefetchoff === '1' ? true : ( wap.prefetchoff === '' ? false : wap.prefetchoff ),
+		verbosity: wap.verbosity ? true : false,
+		memoryoff: wap.memoryoff === '1' ? true : ( wap.memoryoff === '' ? false : wap.memoryoff ),
+		passCount: wap.passCount ? true : false,
 		pluginon: true,
-	} );
+	};
 
-	if ( wp_ajaxify_params.loader && wp_ajaxify_params.loader.enable ) {
+	new Ajaxify( args );
+
+	if ( wap.loader && wap.loader.enable ) {
 		window.addEventListener( 'pronto.request', function() {
 			document.querySelector( 'body' ).insertAdjacentHTML( 'afterbegin', wp_ajaxify_loader( ) );
 		} );
@@ -77,4 +80,4 @@
 			}
 		} );
 	}
-}( jQuery ) );
+}( jQuery, wp_ajaxify_params ) );
