@@ -1,16 +1,16 @@
 {
 	"name": "wp-ajaxify",
 	"version": "1.0.2",
+	"license": "GPLv2+",
+	"author": "Vijay Hardaha <https://twitter.com/vijayhardaha>",
+	"homepage": "https://github.com/vijayhardaha/wp-ajaxify#readme",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/vijayhardaha/wp-ajaxify.git"
 	},
-	"author": "Vijay Hardaha <https://twitter.com/vijayhardaha>",
-	"license": "GPLv2+",
 	"bugs": {
 		"url": "https://github.com/vijayhardaha/wp-ajaxify/issues"
 	},
-	"homepage": "https://github.com/vijayhardaha/wp-ajaxify#readme",
 	"scripts": {
 		"dev": "gulp watch",
 		"prebuild": "npm run lint-fix",
@@ -28,7 +28,7 @@
 		"lint-fix:php": "composer run-script lint-fix",
 		"lint-fix": "npm run lint-fix:css && npm run lint-fix:js && npm run lint-fix:php",
 		"prezip": "rm -rf wp-ajaxify.zip",
-		"zip": "zip -r wp-ajaxify.zip ./*.php includes assets languages",
+		"zip": "zip -r wp-ajaxify.zip ./*.php assets includes languages -x '**/.DS_Store'",
 		"makepot": "wp i18n make-pot . --exclude=\"node_modules,vendor\" --slug=wp-ajaxify"
 	},
 	"browserslist": [
