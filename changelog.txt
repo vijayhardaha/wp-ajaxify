@@ -1,10 +1,13 @@
+= 1.0.2, Sep 15 2022 =
+- Fix: fix the prefetch off conflict by passing boolean in args
+
 = 1.0.1, Aug 31 2022 =
-- chore: npm script names & tasks.
-- chore: remove whitespace from phpcs.xml & updated the required wp version.
-- refactor: add required & tested php & wp version in plugin meta.
-- chore: enhanced gulp task script.
-- docs: format readme.md with prettier.
-- chore: allow empty comments and increase max line length in stylelint
+- Chore: npm script names & tasks.
+- Chore: remove whitespace from phpcs.xml & updated the required wp version.
+- Refactor: add required & tested php & wp version in plugin meta.
+- Chore: enhanced gulp task script.
+- Docs: format readme.md with prettier.
+- Chore: allow empty comments and increase max line length in stylelint
 
 = 1.0.0, Aug 23 2022 =
-* Initial release of plugin.
+- Initial release of plugin.
