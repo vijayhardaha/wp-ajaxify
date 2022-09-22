@@ -5,7 +5,7 @@
  *
  * Copyright Arvind Gupta; MIT Licensed
  *
- * Version 8.2.5
+ * Version 8.2.6
  */
 
 /* INTERFACE: See also https://4nf.org/interface/
@@ -23,8 +23,15 @@ let Ay; //to become the global handle for the main Ajaxify parent class - if use
 let rootUrl = location.origin, inlineclass = "ajy-inline",
 	bdy,
 	qa=(s,o=document)=>o.querySelectorAll(s),
-	qs=(s,o=document)=>o.querySelector(s);
+	qs=(s,o=document)=>o.querySelector(s),
+	qha=(e)=>qs("head").appendChild(e),
+	prC=(e)=>e.parentNode.removeChild(e),
+	dcE=(e)=>document.createElement(e),
 
+_copyAttributes=(el, S, flush)=>{ //copy all attributes of element generically
+	if (flush) [...el.attributes].forEach(e => el.removeAttribute(e.name)); //delete all old attributes
+	[...S.attributes].forEach(e => e.nodeValue == "ajy-body" || el.setAttribute(e.nodeName, e.nodeValue)); //low-level insertion
+};
 
 // The main plugin - Ajaxify
 // Is passed the global options
@@ -72,19 +79,14 @@ Ay.s = {
 
 
 Ay.pass = 0; Ay.currentURL = ""; Ay.h = {};
-Ay.parse = (s, pl) => (pl = document.createElement('div'), pl.insertAdjacentHTML('afterbegin', s), pl.firstElementChild); // HTML parser
-Ay.trigger = (t, e) => { let ev = document.createEvent('HTMLEvents'); ev.initEvent("pronto." + t, true, false); ev.data = e ? e : Ay.Rq("e"); window.dispatchEvent(ev); document.dispatchEvent(ev); };
+Ay.parse = (s, pl) => (pl = dcE('div'), pl.insertAdjacentHTML('afterbegin', s), pl.firstElementChild); // HTML parser
+Ay.trigger = (t, e) => { let ev = document.createEvent('HTMLEvents'); ev.initEvent("pronto." + t, true, false); ev.data = e ? e : Ay.Rq("e"); window.dispatchEvent(ev); };
 Ay.internal = (url) => { if (!url) return false; if (typeof(url) === "object") url = url.href; if (url==="") return true; return url.substring(0,rootUrl.length) === rootUrl || !url.iO(":"); };
 Ay.intevents = () => {
 	let iFn = function (a, b, c = false) { if ((this === document || this === window) && a=="DOMContentLoaded") setTimeout(b); else this.ael(a,b,c);};  // if "DOMContentLoaded" - execute function, else - add event listener
 	EventTarget.prototype.ael = EventTarget.prototype.addEventListener; // store original method
 	EventTarget.prototype.addEventListener = iFn; // start intercepting event listener addition
 };
-
-function _copyAttributes(el, $S, flush) { //copy all attributes of element generically
-	if (flush) [...el.attributes].forEach(e => el.removeAttribute(e.name)); //delete all old attributes
-	[...$S.attributes].forEach(e => e.nodeValue == "ajy-body" || el.setAttribute(e.nodeName, e.nodeValue)); //low-level insertion
-}
 
 function _on(eventName, elementSelector, handler, el = document) { //e.currentTarget is document when the handler is called
 	el.addEventListener(eventName, function(e) {
@@ -154,10 +156,10 @@ divid12 = '<div id="ajy-$1"$2';
 
 		return qs((o === "title") ? o : ".ajy-" + o, Ay.cache.g());
 };
-let _lSel = $t => (
+let _lSel = t => (
 	Ay.pass++,
-	_lEls($t),
-	qa("body > script").forEach(e => (e.classList.contains(inlineclass)) ? e.parentNode.removeChild(e) : false),
+	_lEls(t),
+	qa("body > script").forEach(e => (e.classList.contains(inlineclass)) ? prC(e) : false),
 	Ay.scripts(true),
 	Ay.scripts("s"),
 	Ay.scripts("c")
@@ -169,19 +171,19 @@ let _lSel = $t => (
 		plus = 0;
 		if (cb) return cb();
 	},
-	_ld = ($t, $h) => {
-		if(!$h) return; //no input
+	_ld = (t, h) => {
+		if(!h) return; //no input
 
-		var $c = $h.cloneNode(true); // clone element node (true = deep clone)
-		qa("script", $c).forEach(e => e.parentNode.removeChild(e));
-		_copyAttributes($t, $c, true);
-		$t.innerHTML = $c.innerHTML;
+		var c = h.cloneNode(true); // clone element node (true = deep clone)
+		qa("script", c).forEach(e => prC(e));
+		_copyAttributes(t, c, true);
+		t.innerHTML = c.innerHTML;
 	},
-	_lEls = $t =>
-		Ay.cache.g() && !_isBody($t) && $t.forEach(function($el) {
-			_ld($el, qs("#" + $el.getAttribute("id"), Ay.cache.g()));
+	_lEls = t =>
+		Ay.cache.g() && !_isBody(t) && t.forEach(function(e) {
+			_ld(e, qs("#" + e.getAttribute("id"), Ay.cache.g()));
 		}),
-	_isBody = $t => $t[0].tagName.toLowerCase() == "body" && (_ld(bdy, qs("#ajy-body", Ay.cache.g())), 1),
+	_isBody = t => t[0].tagName.toLowerCase() == "body" && (_ld(bdy, qs("#ajy-body", Ay.cache.g())), 1),
 	_lAjax = (hin, pre) => {
 		var ispost = Ay.Rq("is");
 		if (pre) rt="p"; else rt="c";
@@ -220,7 +222,7 @@ let _lSel = $t => (
 	_cl = c => (plus = 0, (!c) ? cb = 0 : 0), // clear plus AND/OR callback
 	_cache = (href, h, err) => Ay.cache.s(Ay.parse(_parseHTML(h))) && (Ay.pages.p([href, Ay.cache.g()]), 1) && cb && cb(err),
 	_isHtml = x => (ct = x.headers.get("content-type")) && (ct.iO("html") || ct.iO("form-")),
-	_parseHTML = h => document.createElement("html").innerHTML = _replD(h).trim(),
+	_parseHTML = h => dcE("html").innerHTML = _replD(h).trim(),
 	_replD = h => String(h).replace(docType, "").replace(tagso, div12).replace(tagsod, divid12).replace(tagsc, "</div>")
 }}
 
@@ -231,116 +233,57 @@ let _lSel = $t => (
 // <object> - handle one inline script
 // otherwise - delta loading
 class Scripts { constructor() {
-	let $s = false, txt = 0;
+	let S = false, txt = 0;
 	Ay.h.inlinehints = new Hints(Ay.s.inlinehints);
 	Ay.h.inlineskip = new Hints(Ay.s.inlineskip);
 
 	this.a = function (o) {
 		if (o === "i") {
-			if(!$s) $s = {};
+			if(!S) S = {};
 			return true;
 		}
 
-		if (o === "s") return _allstyle($s.y);
+		if (o === "s") return _allstyle(S.y);
 
 		if (o === "1") {
-			Ay.detScripts.d($s);
-			return _addScripts($s);
+			Ay.detScripts.d(S);
+			return _addScripts(S);
 		}
 
-		if (o === "c") return Ay.s.canonical && $s.can ? $s.can.getAttribute("href") : false;
-		if (o === "d") return Ay.detScripts.d($s);
+		if (o === "c") return Ay.s.canonical && S.can ? S.can.getAttribute("href") : false;
+		if (o === "d") return Ay.detScripts.d(S);
 		if (o && typeof o == "object") return _onetxt(o);
 
 		if (Ay.scripts("d")) return;
-		_addScripts($s);
+		_addScripts(S);
 };
-let _allstyle = $s =>
-	!Ay.s.style || !$s || (
-	qa("style", qs("head")).forEach(e => e.parentNode.removeChild(e)),
-	$s.forEach(el => _addstyle(el.outerHTML))
+let _allstyle = S =>
+	!Ay.s.style || !S || (
+	qa("style", qs("head")).forEach(e => prC(e)), //delete old style tags
+	S.forEach(el => {
+		let st = Ay.parse('<style>' + el.textContent + '</style>');
+		_copyAttributes(st, el);
+		qha(st); //append to the head
+	})
 	),
-	_onetxt = $s =>
-		(!(txt = $s.textContent).iO(").ajaxify(") && (!txt.iO("new Ajaxify(")) &&
-			((Ay.s.inline && !Ay.h.inlineskip.find(txt)) || $s.classList.contains("ajaxy") ||
+	_onetxt = S =>
+		(!(txt = S.textContent).iO(").ajaxify(") && (!txt.iO("new Ajaxify(")) &&
+			((Ay.s.inline && !Ay.h.inlineskip.find(txt)) || S.classList.contains("ajaxy") ||
 			Ay.h.inlinehints.find(txt))
-		) && _addtxt($s),
-	_addtxt = $s => {
+		) && _addtxt(S),
+	_addtxt = S => {
 		if(!txt || !txt.length) return;
-		if(Ay.s.inlineappend || ($s.getAttribute("type") && !$s.getAttribute("type").iO("text/javascript"))) try { return _apptxt($s); } catch (e) { }
+		if(Ay.s.inlineappend || (S.getAttribute("type") && !S.getAttribute("type").iO("text/javascript"))) try { return _apptxt(S); } catch (e) { }
 
 		try { eval(txt); } catch (e1) {
 			lg("Error in inline script : " + txt + "\nError code : " + e1);
 		}
 	},
-	_apptxt = $s => { let sc = document.createElement("script"); _copyAttributes(sc, $s); sc.classList.add(inlineclass);
-		try {sc.appendChild(document.createTextNode($s.textContent))} catch(e) {sc.text = $s.textContent};
+	_apptxt = S => { let sc = dcE("script"); _copyAttributes(sc, S); sc.classList.add(inlineclass);
+		try {sc.appendChild(document.createTextNode(S.textContent))} catch(e) {sc.text = S.textContent};
 		return qs("body").appendChild(sc);
 	},
-	_addstyle = t => qs("head").appendChild(Ay.parse(t)),
-	_addScripts = $s => (Ay.addAll($s.c, "href"), Ay.addAll($s.j, "src"))
-}}
-
-// The AddAll plugin
-// Works on a new selection of scripts to apply delta-loading to it
-// pk parameter:
-// href - operate on stylesheets in the new selection
-// src - operate on JS scripts
-class AddAll { constructor() {
-	let $scriptsO = [], $sCssO = [], $sO = [], PK = 0, url = 0,
-linki = '<link rel="stylesheet" type="text/css" href="*" />',
-linkr = 'link[href*="!"]',
-scrr = 'script[src*="!"]';
-
-	Ay.h.alwayshints = new Hints(Ay.s.alwayshints);
-
-	this.a = function ($this, pk) {
-		if(!$this.length) return; //ensure input
-		if(Ay.s.deltas === "n") return true; //Delta-loading completely disabled
-
-		PK = pk; //Copy "primary key" into internal variable
-
-		if(!Ay.s.deltas) return _allScripts($this); //process all scripts
-		//deltas presumed to be "true" -> proceed with normal delta-loading
-
-		$scriptsO = PK == "href" ? $sCssO : $sO; //Copy old.  Stylesheets or JS
-
-		if(!Ay.pass) _newArray($this); //Fill new array on initial load, nothing more
-		else $this.forEach(function(s) { //Iterate through selection
-			var $t = s;
-			url = $t.getAttribute(PK);
-			if(_classAlways($t)) { //Class always handling
-				_removeScript(); //remove from DOM
-				_iScript($t); //insert back single external script in the head
-				return;
-			}
-			if(url) { //URL?
-				if(!$scriptsO.some(e => e == url)) { // Test, whether new
-					$scriptsO.push(url); //If yes: Push to old array
-					_iScript($t);
-				}
-				//Otherwise nothing to do
-				return;
-			}
-
-			if(PK != "href" && !$t.classList.contains("no-ajaxy")) Ay.scripts($t); //Inline JS script? -> inject into DOM
-		});
-};
-let _allScripts = $t => $t.forEach(e => _iScript(e)),
-	_newArray = $t => $t.forEach(e => (url = e.getAttribute(PK)) ? $scriptsO.push(url) : 0),
-	_classAlways = $t => $t.getAttribute("data-class") == "always" || Ay.h.alwayshints.find(url),
-	_iScript = $S => {
-		url = $S.getAttribute(PK);
-
-		if(PK == "href") return qs("head").appendChild(Ay.parse(linki.replace("*", url)));
-		if(!url) return Ay.scripts($S);
-
-		var sc = document.createElement("script");
-		sc.async = Ay.s.asyncdef;
-		_copyAttributes(sc, $S);
-		qs("head").appendChild(sc);
-	},
-	_removeScript = () => qa((PK == "href" ? linkr : scrr).replace("!", url)).forEach(e => e.parentNode.removeChild(e))
+	_addScripts = S => (Ay.addAll.a(S.c, "href"), Ay.addAll.a(S.j, "src"))
 }}
 
 // The Rq plugin - stands for request
@@ -357,7 +300,7 @@ let _allScripts = $t => $t.forEach(e => _iScript(e)),
 // e - set / get internal "e" (event)
 // p - set / get internal "p" (push flag)
 // is - set / get internal "ispost" (flag whether request is a POST)
-// d - set / get internal "d" (data for central $.ajax())
+// d - set / get internal "d" (data for central fetch())
 // C - set / get internal "can" ("href" of canonical URL)
 // c - check whether simple canonical URL is given and return, otherwise return value passed in "p"
 class RQ { constructor() {
@@ -420,7 +363,7 @@ class RQ { constructor() {
 			return ispost;
 		}
 
-		if(o === "d") { //set / get internal "d" (data for central $.ajax())
+		if(o === "d") { //set / get internal "d" (data for central fetch())
 			if(p) data = p;
 			return data;
 		}
@@ -503,23 +446,23 @@ let _k = () => {
 // <object> - fetch href part and continue with _request()
 // <URL> - set "h" variable of Rq hard and continue with _request()
 class Pronto { constructor() {
-	let $gthis = 0, requestTimer = 0, pd = 150, ptim = 0;
+	let gsl = 0, requestTimer = 0, pd = 150, ptim = 0;
 	Ay.h.prefetchoff = new Hints(Ay.s.prefetchoff);
 
-	this.a = function ($this, h) {
+	this.a = function (sl, h) {
 		if(!h) return; //ensure data
 
 		if(h === "i") { //request to initialise
 			bdy = document.body;
-			if(!$this.length) $this = "body";
-			$gthis = qa($this); //copy selection to global selector
+			if(!sl.length) sl = "body";
+			gsl = qa(sl); //copy selection to global selector
 			Ay.frms = new Frms().a; //initialise forms sub-plugin
 			if(Ay.s.idleTime) Ay.slides = new classSlides(Ay).a; //initialise optional slideshow sub-plugin
 			Ay.scrolly = new Scrolly(); //initialise scroll effects sub-plugin
 			(Ay.offsets = new Offsets()).f();
 			Ay.hApi = new HApi();
 			_init_p(); //initialise Pronto sub-plugin
-			return $this; //return query selector for chaining
+			return sl; //return query selector for chaining
 		}
 
 		if(typeof(h) === "object") { //jump to internal page programmatically -> handler for forms sub-plugin
@@ -544,7 +487,7 @@ let _init_p = () => {
 	_on("click", Ay.s.selector, _click, bdy);
 	Ay.frms("d", qa("body"));
 	Ay.frms("a");
-	Ay.frms("d", $gthis);
+	Ay.frms("d", gsl);
 	if(Ay.s.idleTime) Ay.slides("i");
 },
 	_preftime  = (t, e) => (_prefstop(), ptim = setTimeout(()=> _prefetch(t, e), pd)), // call prefetch if timeout expires without being cleared by _prefstop
@@ -617,7 +560,7 @@ let _init_p = () => {
 
 		if(Ay.Rq("p")) Ay.hApi.p(href); else Ay.hApi.r(href);
 		if(title = Ay.fn("title")) qs("title").innerHTML = title.innerHTML;
-		Ay.Rq("C", Ay.fn("-", $gthis));
+		Ay.Rq("C", Ay.fn("-", gsl));
 		Ay.frms("a");
 
 		Ay.scrolly.l();
@@ -678,7 +621,7 @@ let run = () => {
 		Ay.memory = new Memory(); Ay.h.memoryoff = new Hints(Ay.s.memoryoff);
 		Ay.fn = Ay.getPage = new GetPage().a;
 		Ay.detScripts = new DetScripts();
-		Ay.addAll = new AddAll().a;
+		Ay.addAll = new AddAll(); Ay.h.alwayshints = new Hints(Ay.s.alwayshints);
 		Ay.Rq = new RQ().a;
 		return true;
 	};
@@ -764,4 +707,51 @@ class HApi {
 	r(h){ let c = this.u(h); history.replaceState({ url: c }, "state-" + c, c); } //perform replaceState
 	p(h){ let c = this.u(h); if (c !== window.location.href) history.pushState({ url: c }, "state-" + c, c); } //perform pushState
 	u(h){ if(h) Ay.currentURL = h; return Ay.currentURL; } //update currentURL if given and return always
+}
+
+// The AddAll class
+// Works on a new selection of scripts to apply delta-loading to it
+class AddAll { constructor() { this.CSS = []; this.JS = []; }
+	a(sl, pk) { //only public function
+		if(!sl.length || Ay.s.deltas === "n") return; //ensure input and that delta-loading is enabled
+
+		this.PK = pk; //Copy "primary key" into internal variable
+
+		if(!Ay.s.deltas) return sl.forEach(e => this.iScript(e)); //process all scripts and return quickly
+		//deltas presumed to be "true" -> proceed with normal delta-loading
+
+		this.O = pk == "href" ? this.CSS : this.JS; //Load old stylesheets or JS
+
+		sl.forEach(t => { //Iterate through selection
+			let url = this.gA(t); //fetch URL
+			if(!Ay.pass) return url && this.O.push(url); //Fill new array on initial load, nothing more
+			if(t.getAttribute("data-class") == "always" || Ay.h.alwayshints.find(url)) { //Class always handling
+				this.removeScript(); //remove from DOM
+				this.iScript(t); //insert back single external script in the head
+				return;
+			}
+			if(url) { //URL?
+				if(!this.O.some(e => e == url)) { // Test, whether new
+					this.O.push(url); //If yes: Push to old array
+					this.iScript(t);
+				}
+				//Otherwise nothing to do
+				return;
+			}
+
+			if(pk != "href" && !t.classList.contains("no-ajaxy")) Ay.scripts(t); //Inline JS script? -> inject into DOM
+		});
+}
+	gA(e){ return this.u = e.getAttribute(this.PK) }
+	iScript(S){
+		this.gA(S);
+		if(this.PK == "href") return qha(Ay.parse('<link rel="stylesheet" type="text/css" href="*" />'.replace("*", this.u)));
+		if(!this.u) return Ay.scripts(S);
+
+		var sc = dcE("script");
+		sc.async = Ay.s.asyncdef;
+		_copyAttributes(sc, S);
+		qha(sc);
+	}
+	removeScript(){ qa((this.PK == "href" ? 'link[href*="!"]' : 'script[src*="!"]').replace("!", this.u)).forEach(e => prC(e)) }
 }
