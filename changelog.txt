@@ -1,3 +1,6 @@
+= 1.0.3, Sep 23 2022 =
+- Fix: fix missing style attr and pronto twice request issues
+
 = 1.0.2, Sep 15 2022 =
 - Fix: fix the prefetch off conflict by passing boolean in args
 
