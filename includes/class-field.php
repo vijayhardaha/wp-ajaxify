@@ -144,7 +144,7 @@ class Field {
 		$field_attributes['placeholder'] = $field['placeholder'];
 		$field_attributes['style']       = $field['style'];
 		$field_attributes['type']        = $field['type'];
-		$field_attributes['value']       = ! empty( $field['value'] ) ? $field['value'] : get_option( $field['name'] );
+		$field_attributes['value']       = get_option( $field['name'] );
 
 		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
 			$field_attributes['required'] = 'required';
@@ -209,7 +209,6 @@ class Field {
 		$field_attributes['placeholder'] = $field['placeholder'];
 		$field_attributes['rows']        = $field['rows'];
 		$field_attributes['style']       = $field['style'];
-		$field_attributes['value']       = ! empty( $field['value'] ) ? $field['value'] : get_option( $field['name'] );
 
 		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
 			$field_attributes['required'] = 'required';
@@ -223,7 +222,7 @@ class Field {
 				<label <?php $this->html_attrs( $label_attributes ); ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
 			</th>
 			<td>
-				<textarea <?php $this->html_attrs( $field_attributes ); ?>><?php echo esc_textarea( $field['value'] ); ?></textarea>
+				<textarea <?php $this->html_attrs( $field_attributes ); ?>><?php echo esc_textarea( get_option( $field['name'] ) ); ?></textarea>
 
 				<?php if ( ! empty( $description ) ) : ?>
 					<p class="description"><?php echo wp_kses_post( $description ); ?></p>
@@ -267,7 +266,6 @@ class Field {
 		$field_attributes['id']    = $field['id'];
 		$field_attributes['name']  = ! empty( $field['name'] ) ? $field['name'] : $field['id'];
 		$field_attributes['style'] = $field['style'];
-		$field_attributes['value'] = ! empty( $field['value'] ) ? $field['value'] : get_option( $field['name'] );
 
 		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
 			$field_attributes['required'] = 'required';
@@ -285,12 +283,12 @@ class Field {
 					<?php
 					foreach ( $field['options'] as $key => $value ) {
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						echo '<option value="' . esc_attr( $key ) . '"' . $this->selected( $key, $field['value'] ) . '>' . esc_html( $value ) . '</option>';
+						echo '<option value="' . esc_attr( $key ) . '"' . $this->selected( $key, get_option( $field['name'] ) ) . '>' . esc_html( $value ) . '</option>';
 					}
 					?>
 				</select>
 
-					<?php if ( ! empty( $description ) ) : ?>
+				<?php if ( ! empty( $description ) ) : ?>
 					<p class="description"><?php echo wp_kses_post( $description ); ?></p>
 				<?php endif; ?>
 			</td>
