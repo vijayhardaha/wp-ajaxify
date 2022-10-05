@@ -48,10 +48,8 @@ node_modules/
 vendor/
 
 # Composer
-.phpunit.result.cache
 /tests/phpunit/build
 bin/composer/**/vendor/
-composer.lock
 contributors.html
 contributors.md
 lib/vendor/
@@ -69,9 +67,6 @@ vendor/
 # NPM
 .npm
 
-# Node
-package-lock.json
-
 # REPL
 .node_repl_history
 
@@ -83,9 +78,6 @@ tsconfig.tsbuildinfo
 
 # Unit tests
 tmp/
-
-# Yarn
-yarn.lock
 
 # Test Results
 test-results.json
