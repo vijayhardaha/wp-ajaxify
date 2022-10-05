@@ -31,8 +31,8 @@ See the [Plugin Development](docs/development.md) guide for getting started with
 
 ## License
 
-WP Ajaxify, Copyright (C) 2022, Vijay Hardaha.\
-WP Ajaxify is distributed under the terms of the GNU GPL.
+Copyright (C) 2022, Vijay Hardaha.\
+WP Ajaxify is distributed under the terms of the [GNU GENERAL PUBLIC LICENSE](LICENSE).
 
 ## Contributions
 
