@@ -145,7 +145,9 @@ class Dashboard {
 						'<a href="https://github.com/vijayhardaha/wp-ajaxify" aria-label="' . esc_attr__( 'Github', 'wp-ajaxify' ) . '" target="_blank">' . esc_html__( 'Github', 'wp-ajaxify' ) . '</a>'
 					);
 					?>
-					<br/>
+				</p>
+
+				<p class="links">
 					<span>
 						<a href="<?php echo esc_url( 'https://github.com/vijayhardaha/wp-ajaxify/issues' ); ?>" target="_blank">
 							<?php esc_html_e( 'Support', 'wp-ajaxify' ); ?>
@@ -243,6 +245,7 @@ class Dashboard {
 					array(
 						'id'          => 'wp_ajaxify_elements',
 						'name'        => '_wp_ajaxify_elements',
+						'class'       => 'large-text',
 						'label'       => __( 'Element IDs', 'wp-ajaxify' ),
 						'desc'        => __( 'Selector for element IDs that are going to be swapped (e.g. <code>#page, #wpadminbar</code>)', 'wp-ajaxify' ),
 						'placeholder' => __( 'e.g. #page, #wpadminbar', 'wp-ajaxify' ),
@@ -254,6 +257,7 @@ class Dashboard {
 					array(
 						'id'          => 'wp_ajaxify_selector',
 						'name'        => '_wp_ajaxify_selector',
+						'class'       => 'large-text',
 						'label'       => __( 'Links Selectors', 'wp-ajaxify' ),
 						'desc'        => __( 'Selector for links to trigger swapping - not elements to be swapped - i.e. a selection of links (e.g. <code>#page a:not(.no-ajaxy, a[href*=logout])</code>)', 'wp-ajaxify' ),
 						'placeholder' => __( 'e.g. #page a:not(.no-ajaxy, a[href*=logout])', 'wp-ajaxify' ),
@@ -265,6 +269,7 @@ class Dashboard {
 					array(
 						'id'          => 'wp_ajaxify_forms',
 						'name'        => '_wp_ajaxify_forms',
+						'class'       => 'large-text',
 						'label'       => __( 'Forms Selectors', 'wp-ajaxify' ),
 						'desc'        => __( 'Selector for ajaxifying forms (e.g. <code>form:not(.no-ajaxy)</code>), Leave empty to disable all forms.', 'wp-ajaxify' ),
 						'placeholder' => __( 'e.g. form:not(.no-ajaxy)', 'wp-ajaxify' ),

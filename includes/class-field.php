@@ -65,7 +65,7 @@ class Field {
 	 */
 	public function submit_field( $setting_group = 'wp_ajaxify_settings' ) {
 		?>
-		<tr class="submit">
+		<tr class="submit-row">
 			<th colspan="2">
 				<?php settings_fields( $setting_group ); ?>
 				<?php submit_button(); ?>
@@ -93,8 +93,8 @@ class Field {
 		$field_id = sanitize_title( $field['label'] );
 
 		$wrapper_attributes = array(
-			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'heading', $field_id . '-heading' ) ) ),
-			'id'    => $field_id . '-section',
+			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'heading-row', $field_id . '-heading' ) ) ),
+			'id'    => $field_id . '-heading-row',
 		);
 
 		?>
