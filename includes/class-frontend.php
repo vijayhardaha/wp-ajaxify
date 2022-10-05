@@ -7,8 +7,7 @@
 
 namespace WP_Ajaxify;
 
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || die( 'Don\'t run this file directly!' );
 
 /**
  * WP Ajaxify Frontend Class.

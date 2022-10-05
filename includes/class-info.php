@@ -7,6 +7,8 @@
 
 namespace WP_Ajaxify;
 
+defined( 'ABSPATH' ) || die( 'Don\'t run this file directly!' );
+
 /**
  * WP Ajaxify Plugin Infomation Class.
  *

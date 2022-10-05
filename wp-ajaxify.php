@@ -17,8 +17,7 @@
  * @package WP_Ajaxify
  */
 
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || die( 'Don\'t run this file directly!' );
 
 if ( ! class_exists( 'WP_Ajaxify' ) ) {
 
