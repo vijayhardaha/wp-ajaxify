@@ -222,23 +222,27 @@ class Dashboard {
 		?>
 		<form method="post" action="options.php">
 			<table class="form-table">
-				<tr class="heading">
-					<th><?php esc_html_e( 'Basic', 'wp-ajaxify' ); ?></th>
-					<td><?php esc_html_e( 'Basic settings for the Ajaxify.', 'wp-ajaxify' ); ?></td>
-				</tr>
-
 				<?php
-				$this->field->yes_no_field(
-					'_wp_ajaxify_enable',
+				$this->field->heading_field(
 					array(
+						'label' => __( 'Basic', 'wp-ajaxify' ),
+						'desc'  => __( 'Basic settings for the Ajaxify.', 'wp-ajaxify' ),
+					)
+				);
+
+				$this->field->yes_no_field(
+					array(
+						'id'    => 'wp_ajaxify_enable',
+						'name'  => '_wp_ajaxify_enable',
 						'label' => __( 'Enable Ajaxify', 'wp-ajaxify' ),
 						'desc'  => __( 'Quickly Enable or Disable Ajaxify on the website.', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->text_field(
-					'_wp_ajaxify_elements',
 					array(
+						'id'          => 'wp_ajaxify_elements',
+						'name'        => '_wp_ajaxify_elements',
 						'label'       => __( 'Element IDs', 'wp-ajaxify' ),
 						'desc'        => __( 'Selector for element IDs that are going to be swapped (e.g. <code>#page, #wpadminbar</code>)', 'wp-ajaxify' ),
 						'placeholder' => __( 'e.g. #page, #wpadminbar', 'wp-ajaxify' ),
@@ -247,8 +251,9 @@ class Dashboard {
 				);
 
 				$this->field->text_field(
-					'_wp_ajaxify_selector',
 					array(
+						'id'          => 'wp_ajaxify_selector',
+						'name'        => '_wp_ajaxify_selector',
 						'label'       => __( 'Links Selectors', 'wp-ajaxify' ),
 						'desc'        => __( 'Selector for links to trigger swapping - not elements to be swapped - i.e. a selection of links (e.g. <code>#page a:not(.no-ajaxy, a[href*=logout])</code>)', 'wp-ajaxify' ),
 						'placeholder' => __( 'e.g. #page a:not(.no-ajaxy, a[href*=logout])', 'wp-ajaxify' ),
@@ -257,8 +262,9 @@ class Dashboard {
 				);
 
 				$this->field->text_field(
-					'_wp_ajaxify_forms',
 					array(
+						'id'          => 'wp_ajaxify_forms',
+						'name'        => '_wp_ajaxify_forms',
 						'label'       => __( 'Forms Selectors', 'wp-ajaxify' ),
 						'desc'        => __( 'Selector for ajaxifying forms (e.g. <code>form:not(.no-ajaxy)</code>), Leave empty to disable all forms.', 'wp-ajaxify' ),
 						'placeholder' => __( 'e.g. form:not(.no-ajaxy)', 'wp-ajaxify' ),
@@ -266,43 +272,49 @@ class Dashboard {
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_canonical',
 					array(
+						'id'    => 'wp_ajaxify_canonical',
+						'name'  => '_wp_ajaxify_canonical',
 						'label' => __( 'Canonical', 'wp-ajaxify' ),
 						'desc'  => __( 'Fetch current URL from "canonical" link if given, updating the History API.  In case of a re-direct.', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_refresh',
 					array(
+						'id'    => 'wp_ajaxify_refresh',
+						'name'  => '_wp_ajaxify_refresh',
 						'label' => __( 'Refresh', 'wp-ajaxify' ),
 						'desc'  => __( 'Refresh the page even if link clicked is current page.', 'wp-ajaxify' ),
 					)
 				);
-				?>
 
-				<tr class="heading">
-					<th><?php esc_html_e( 'Visual Effects', 'wp-ajaxify' ); ?></th>
-					<td><?php esc_html_e( 'Settings for the Visual Effects of the Ajaxify.', 'wp-ajaxify' ); ?></td>
-				</tr>
-
-				<?php
-
-				$this->field->number_field(
-					'_wp_ajaxify_requestdelay',
+				$this->field->heading_field(
 					array(
+						'label' => __( 'Visual Effects', 'wp-ajaxify' ),
+						'desc'  => __( 'Settings for the Visual Effects of the Ajaxify.', 'wp-ajaxify' ),
+					)
+				);
+
+				$this->field->text_field(
+					array(
+						'id'          => 'wp_ajaxify_requestdelay',
+						'name'        => '_wp_ajaxify_requestdelay',
+						'type'        => 'number',
 						'label'       => __( 'Request Delay', 'wp-ajaxify' ),
 						'desc'        => __( 'In Milliseconds - Delay of Pronto request.', 'wp-ajaxify' ),
 						'placeholder' => __( '(e.g. 1000)', 'wp-ajaxify' ),
-						'step'        => 100,
-						'min'         => 0,
+						'attributes'  => array(
+							'step' => 100,
+							'min'  => 0,
+						),
 					)
 				);
 
 				$this->field->dropdown_field(
-					'_wp_ajaxify_scrolltop',
 					array(
+						'id'      => 'wp_ajaxify_scrolltop',
+						'name'    => '_wp_ajaxify_scrolltop',
 						'label'   => __( 'Scroll Top', 'wp-ajaxify' ),
 						'options' => array(
 							's'     => __( 'Smooth Scroll', 'wp-ajaxify' ),
@@ -312,51 +324,60 @@ class Dashboard {
 					)
 				);
 
-				$this->field->number_field(
-					'_wp_ajaxify_scrolldelay',
+				$this->field->text_field(
 					array(
+						'id'          => 'wp_ajaxify_scrolldelay',
+						'name'        => '_wp_ajaxify_scrolldelay',
+						'type'        => 'number',
 						'label'       => __( 'Scroll Delay', 'wp-ajaxify' ),
 						'desc'        => __( 'Minimal delay on all scroll effects in Milliseconds, useful in case of e.g. smooth scroll', 'wp-ajaxify' ),
 						'placeholder' => __( '(e.g. 1000)', 'wp-ajaxify' ),
-						'step'        => 100,
-						'min'         => 0,
+						'attributes'  => array(
+							'step' => 100,
+							'min'  => 0,
+						),
+
 					)
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_bodyclasses',
 					array(
+						'id'    => 'wp_ajaxify_bodyclasses',
+						'name'  => '_wp_ajaxify_bodyclasses',
 						'label' => __( 'Body Classes', 'wp-ajaxify' ),
 						'desc'  => __( 'Copy body attributes from target page, set to "false" to disable.', 'wp-ajaxify' ),
 					)
 				);
-				?>
 
-				<tr class="heading">
-					<th><?php esc_html_e( 'Script & Style', 'wp-ajaxify' ); ?></th>
-					<td><?php esc_html_e( 'Scripts, Styles & Prefetch handling configurations.', 'wp-ajaxify' ); ?></td>
-				</tr>
-
-				<?php
-				$this->field->true_false_field(
-					'_wp_ajaxify_deltas',
+				$this->field->heading_field(
 					array(
+						'label' => __( 'Scripts & Styles', 'wp-ajaxify' ),
+						'desc'  => __( 'Scripts, Styles & Prefetch handling configurations.', 'wp-ajaxify' ),
+					)
+				);
+
+				$this->field->true_false_field(
+					array(
+						'id'    => 'wp_ajaxify_deltas',
+						'name'  => '_wp_ajaxify_deltas',
 						'label' => __( 'Deltas', 'wp-ajaxify' ),
 						'desc'  => __( 'True = deltas loaded, False = all scripts loaded', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_asyncdef',
 					array(
+						'id'    => 'wp_ajaxify_asyncdef',
+						'name'  => '_wp_ajaxify_asyncdef',
 						'label' => __( 'Async', 'wp-ajaxify' ),
 						'desc'  => __( 'Default async value for dynamically inserted external scripts, False = synchronous / True = asynchronous', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->textarea_field(
-					'_wp_ajaxify_alwayshints',
 					array(
+						'id'          => 'wp_ajaxify_alwayshints',
+						'name'        => '_wp_ajaxify_alwayshints',
 						'label'       => __( 'Always Hints', 'wp-ajaxify' ),
 						'desc'        => __( 'If matched in any external script URL - these are always loaded on every page load. Leave empty to disable it.', 'wp-ajaxify' ),
 						'placeholder' => __( 'Write one script url per line.', 'wp-ajaxify' ),
@@ -364,16 +385,18 @@ class Dashboard {
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_inline',
 					array(
+						'id'    => 'wp_ajaxify_inline',
+						'name'  => '_wp_ajaxify_inline',
 						'label' => __( 'Inline', 'wp-ajaxify' ),
 						'desc'  => __( 'True = all inline scripts loaded, False = only specific inline scripts are loaded.', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->textarea_field(
-					'_wp_ajaxify_inlinehints',
 					array(
+						'id'          => 'wp_ajaxify_inlinehints',
+						'name'        => '_wp_ajaxify_inlinehints',
 						'label'       => __( 'Inline Hints', 'wp-ajaxify' ),
 						'desc'        => __( 'If matched in any inline scripts - only these are executed - set "inline" to false beforehand.', 'wp-ajaxify' ),
 						'placeholder' => __( 'Write one value per line.', 'wp-ajaxify' ),
@@ -381,8 +404,9 @@ class Dashboard {
 				);
 
 				$this->field->textarea_field(
-					'_wp_ajaxify_inlineskip',
 					array(
+						'id'          => 'wp_ajaxify_inlineskip',
+						'name'        => '_wp_ajaxify_inlineskip',
 						'label'       => __( 'Inline Skip', 'wp-ajaxify' ),
 						'desc'        => __( 'If matched in any inline scripts - these are NOT are executed - set "inline" to true beforehand.', 'wp-ajaxify' ),
 						'placeholder' => __( 'Write one value per line.', 'wp-ajaxify' ),
@@ -390,69 +414,76 @@ class Dashboard {
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_inlineappend',
 					array(
+						'id'    => 'wp_ajaxify_inlineappend',
+						'name'  => '_wp_ajaxify_inlineappend',
 						'label' => __( 'Inline Append', 'wp-ajaxify' ),
 						'desc'  => __( 'Append scripts to the main content element, instead of "eval"-ing them', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_intevents',
 					array(
+						'id'    => 'wp_ajaxify_intevents',
+						'name'  => '_wp_ajaxify_intevents',
 						'label' => __( 'Intercept Events', 'wp-ajaxify' ),
 						'desc'  => __( 'Intercept events that are fired only on classic page load and simulate their trigger on ajax page load ("DOMContentLoaded")', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_style',
 					array(
+						'id'    => 'wp_ajaxify_style',
+						'name'  => '_wp_ajaxify_style',
 						'label' => __( 'Style', 'wp-ajaxify' ),
 						'desc'  => __( 'True = all style tags in the head loaded, False = style tags on target page ignored.', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->text_field(
-					'_wp_ajaxify_prefetchoff',
 					array(
+						'id'    => 'wp_ajaxify_prefetchoff',
+						'name'  => '_wp_ajaxify_prefetchoff',
 						'label' => __( 'Prefetch Off', 'wp-ajaxify' ),
 						'desc'  => __( 'Plugin pre-fetches pages on hoverIntent - true = set off completely // strings - separated by ", " - hints to select out.', 'wp-ajaxify' ),
 					)
 				);
-				?>
 
-				<tr class="heading">
-					<th><?php esc_html_e( 'Debugging & Advanced', 'wp-ajaxify' ); ?></th>
-					<td><?php esc_html_e( 'Debugging and Advanced settings for the Ajaxify.', 'wp-ajaxify' ); ?></td>
-				</tr>
-
-				<?php
-				$this->field->true_false_field(
-					'_wp_ajaxify_verbosity',
+				$this->field->heading_field(
 					array(
+						'label' => __( 'Debugging & Advanced', 'wp-ajaxify' ),
+						'desc'  => __( 'Debugging and Advanced settings for the Ajaxify.', 'wp-ajaxify' ),
+					)
+				);
+
+				$this->field->true_false_field(
+					array(
+						'id'    => 'wp_ajaxify_verbosity',
+						'name'  => '_wp_ajaxify_verbosity',
 						'label' => __( 'Debugging', 'wp-ajaxify' ),
 						'desc'  => __( 'Enable/Disable logs in console for debugging.', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->true_false_field(
-					'_wp_ajaxify_passcount',
 					array(
+						'id'    => 'wp_ajaxify_passcount',
+						'name'  => '_wp_ajaxify_passcount',
 						'label' => __( 'Passcount', 'wp-ajaxify' ),
 						'desc'  => __( 'Show number of pass for debugging.', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->text_field(
-					'_wp_ajaxify_memoryoff',
 					array(
+						'id'    => 'wp_ajaxify_memoryoff',
+						'name'  => '_wp_ajaxify_memoryoff',
 						'label' => __( 'Memory Off', 'wp-ajaxify' ),
 						'desc'  => __( 'Separated by ", " - if matched in any URLs - only these are NOT executed - set to "true" to disable memory completely.', 'wp-ajaxify' ),
 					)
 				);
 
-				$this->field->submit_row( 'wp_ajaxify_settings' );
+				$this->field->submit_field( 'wp_ajaxify_settings' );
 				?>
 			</table>
 		</form>
@@ -468,23 +499,27 @@ class Dashboard {
 		?>
 		<form method="post" action="options.php">
 			<table class="form-table">
-				<tr class="heading">
-					<th><?php esc_html_e( 'Loader', 'wp-ajaxify' ); ?></th>
-					<td><?php esc_html_e( 'Settings for the ajaxify loader.', 'wp-ajaxify' ); ?></td>
-				</tr>
-
 				<?php
-				$this->field->yes_no_field(
-					'_wp_ajaxify_loader_enable',
+				$this->field->heading_field(
 					array(
+						'label' => __( 'Loader', 'wp-ajaxify' ),
+						'desc'  => __( 'Settings for the Ajaxify loader.', 'wp-ajaxify' ),
+					)
+				);
+
+				$this->field->yes_no_field(
+					array(
+						'id'    => 'wp_ajaxify_loader_enable',
+						'name'  => '_wp_ajaxify_loader_enable',
 						'label' => __( 'Enable Loader', 'wp-ajaxify' ),
 						'desc'  => __( 'If Enabled, Selected Loader type will appear on each page before Pronto Request.', 'wp-ajaxify' ),
 					)
 				);
 
 				$this->field->dropdown_field(
-					'_wp_ajaxify_loader_type',
 					array(
+						'id'      => 'wp_ajaxify_loader_type',
+						'name'    => '_wp_ajaxify_loader_type',
 						'label'   => __( 'Loader Type', 'wp-ajaxify' ),
 						'desc'    => __( 'Choose the loader type. If you choose Custom Loader then put your loader HTML in Loader HTML field.', 'wp-ajaxify' ),
 						'options' => array(
@@ -498,41 +533,50 @@ class Dashboard {
 				);
 
 				$this->field->textarea_field(
-					'_wp_ajaxify_loader_html',
 					array(
+						'id'    => 'wp_ajaxify_loader_html',
+						'name'  => '_wp_ajaxify_loader_html',
 						'label' => __( 'Loader HTML', 'wp-ajaxify' ),
 						'desc'  => __( 'Put your custom loader HTML here. Write CSS for loader separatly in theme files or in WordPress Additional CSS.', 'wp-ajaxify' ),
 					)
 				);
 
-				$this->field->color_field(
-					'_wp_ajaxify_loader_primary_color',
+				$this->field->text_field(
 					array(
+						'id'    => 'wp_ajaxify_loader_primary_color',
+						'name'  => '_wp_ajaxify_loader_primary_color',
+						'class' => 'wp-ajaxify-color-picker',
 						'label' => __( 'Primary Color', 'wp-ajaxify' ),
 						'desc'  => __( 'Primary color for loader usage. Default: #2872fa', 'wp-ajaxify' ),
 					)
 				);
 
-				$this->field->color_field(
-					'_wp_ajaxify_loader_overlay_color',
+				$this->field->text_field(
 					array(
+						'id'    => 'wp_ajaxify_loader_overlay_color',
+						'name'  => '_wp_ajaxify_loader_overlay_color',
+						'class' => 'wp-ajaxify-color-picker',
 						'label' => __( 'Overlay Color', 'wp-ajaxify' ),
 						'desc'  => __( 'Overlay background color for loader usage. Default: #000000', 'wp-ajaxify' ),
 					)
 				);
 
-				$this->field->number_field(
-					'_wp_ajaxify_loader_overlay_opacity',
+				$this->field->text_field(
 					array(
-						'label' => __( 'Overlay Opacity', 'wp-ajaxify' ),
-						'desc'  => __( 'Control the overlay opacity. Default: 0.35', 'wp-ajaxify' ),
-						'step'  => 0.05,
-						'min'   => 0,
-						'max'   => 1,
+						'id'         => 'wp_ajaxify_loader_overlay_opacity',
+						'name'       => '_wp_ajaxify_loader_overlay_opacity',
+						'type'       => 'number',
+						'label'      => __( 'Overlay Opacity', 'wp-ajaxify' ),
+						'desc'       => __( 'Control the overlay opacity. Default: 0.35', 'wp-ajaxify' ),
+						'attributes' => array(
+							'step' => 0.05,
+							'min'  => 0,
+							'max'  => 1,
+						),
 					)
 				);
 
-				$this->field->submit_row( 'wp_ajaxify_appearance' );
+				$this->field->submit_field( 'wp_ajaxify_appearance' );
 				?>
 			</table>
 		</form>
@@ -548,15 +592,18 @@ class Dashboard {
 		?>
 		<form method="post" action="options.php">
 			<table class="form-table">
-				<tr class="heading">
-					<th><?php esc_html_e( 'Version Integration', 'wp-ajaxify' ); ?></th>
-					<td><?php esc_html_e( 'Settings for different Ajaxify.js version integration & testing.', 'wp-ajaxify' ); ?></td>
-				</tr>
-
 				<?php
-				$this->field->text_field(
-					'_wp_ajaxify_cdn_url',
+				$this->field->heading_field(
 					array(
+						'label' => __( 'Version Integration', 'wp-ajaxify' ),
+						'desc'  => __( 'Settings for different Ajaxify.js version Integration & Testing.', 'wp-ajaxify' ),
+					)
+				);
+
+				$this->field->text_field(
+					array(
+						'id'    => 'wp_ajaxify_cdn_url',
+						'name'  => '_wp_ajaxify_cdn_url',
 						'label' => __( 'Ajaxify JS URL', 'wp-ajaxify' ),
 						'desc'  => sprintf(
 							'%s<br/>%s.',
@@ -565,23 +612,24 @@ class Dashboard {
 						),
 					)
 				);
-				?>
 
-				<tr class="heading">
-					<th><?php esc_html_e( 'Extras', 'wp-ajaxify' ); ?></th>
-					<td><?php esc_html_e( 'Other plugin settings.', 'wp-ajaxify' ); ?></td>
-				</tr>
-
-				<?php
-				$this->field->yes_no_field(
-					'_wp_ajaxify_uninstall',
+				$this->field->heading_field(
 					array(
+						'label' => __( 'Extras', 'wp-ajaxify' ),
+						'desc'  => __( 'Other plugin settings.', 'wp-ajaxify' ),
+					)
+				);
+
+				$this->field->yes_no_field(
+					array(
+						'id'    => 'wp_ajaxify_uninstall',
+						'name'  => '_wp_ajaxify_uninstall',
 						'label' => __( 'Uninstall WP Ajaxify', 'wp-ajaxify' ),
 						'desc'  => __( 'Remove ALL WP Ajaxify data upon plugin deletion. All settings will be unrecoverable.', 'wp-ajaxify' ),
 					)
 				);
 
-				$this->field->submit_row( 'wp_ajaxify_misc' );
+				$this->field->submit_field( 'wp_ajaxify_misc' );
 				?>
 			</table>
 		</form>

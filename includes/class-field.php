@@ -1,6 +1,6 @@
 <?php
 /**
- * Class for Field Page.
+ * Helper class for dashboard fields.
  *
  * @package WP_Ajaxify
  */
@@ -15,12 +15,55 @@ namespace WP_Ajaxify;
 class Field {
 
 	/**
-	 * Render submit button row.
+	 * Converts a string (e.g. 'yes' or 'no') to a bool.
+	 *
+	 * @since 1.1.0
+	 * @param string|bool $string String to convert. If a bool is passed it will be returned as-is.
+	 * @return bool
+	 */
+	private function str_to_bool( $string ) {
+		return is_bool( $string ) ? $string : ( 'yes' === strtolower( $string ) || 1 === $string || 'true' === strtolower( $string ) || '1' === $string );
+	}
+
+	/**
+	 * Return the html selected attribute if stringified $value is found in array of stringified $options
+	 * or if stringified $value is the same as scalar stringified $options.
+	 *
+	 * @param string|int       $value   Value to find within options.
+	 * @param string|int|array $options Options to go through when looking for value.
+	 * @return string
+	 */
+	private function selected( $value, $options ) {
+		if ( is_array( $options ) ) {
+			$options = array_map( 'strval', $options );
+			return selected( in_array( (string) $value, $options, true ), true, false );
+		}
+
+		return selected( $value, $options, false );
+	}
+
+	/**
+	 * Implode and escape HTML attributes for output.
+	 *
+	 * @since 1.0.0
+	 * @param array $raw_attributes Attribute name value pairs.
+	 */
+	private function html_attrs( $raw_attributes ) {
+		$field_attributes = array();
+		foreach ( $raw_attributes as $name => $value ) {
+			$field_attributes[] = esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
+		}
+
+		echo implode( ' ', $field_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Output submit field row.
 	 *
 	 * @since 1.0.0
 	 * @param string $setting_group Settings group.
 	 */
-	public function submit_row( $setting_group = 'wp_ajaxify_settings' ) {
+	public function submit_field( $setting_group = 'wp_ajaxify_settings' ) {
 		?>
 		<tr class="submit">
 			<th colspan="2">
@@ -32,39 +75,93 @@ class Field {
 	}
 
 	/**
-	 * Render text input field.
+	 * Output heading field row.
 	 *
 	 * @since 1.0.0
-	 * @param string $field_name    Field name.
-	 * @param array  $field_args    Field options.
+	 * @param array $field Field data.
 	 */
-	public function text_field( string $field_name, array $field_args = array() ) {
-		if ( empty( $field_name ) ) {
-			return;
-		}
-
-		$default_args = array(
-			'id'          => sanitize_title( str_replace( '_', '-', join( '-', array( 'setting-field', $field_name ) ) ) ),
-			'label'       => __( 'Field Label', 'wp-ajaxify' ),
-			'placeholder' => '',
-			'desc'        => '',
-			'required'    => false,
+	public function heading_field( array $field ) {
+		$field = wp_parse_args(
+			$field,
+			array(
+				'label'         => '',
+				'desc'          => '',
+				'wrapper_class' => '',
+			)
 		);
 
-		$args = wp_parse_args( $field_args, $default_args );
+		$field_id = sanitize_title( $field['label'] );
 
-		$required = rest_sanitize_boolean( $args['required'] ) ? 'required' : '';
+		$wrapper_attributes = array(
+			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'heading', $field_id . '-heading' ) ) ),
+			'id'    => $field_id . '-section',
+		);
 
-		// Fetch option value.
-		$value = get_option( $field_name );
 		?>
-		<tr id="<?php echo esc_attr( join( '-', array( 'setting-row', $args['id'] ) ) ); ?>">
-			<th><?php echo esc_html( $args['label'] ); ?></th>
-			<td>
-				<input type="text" name="<?php echo esc_attr( $field_name ); ?>" class="regular-text" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" <?php echo esc_attr( $required ); ?> />
+		<tr <?php $this->html_attrs( $wrapper_attributes ); ?>>
+			<th><?php echo wp_kses_post( $field['label'] ); ?></th>
+			<td><?php echo wp_kses_post( $field['desc'] ); ?></td>
+		</tr>
+		<?php
+	}
 
-				<?php if ( ! empty( $args['desc'] ) ) : ?>
-					<div class="description"><?php echo wp_kses_post( $args['desc'] ); ?></div>
+	/**
+	 * Output a text input field row.
+	 *
+	 * @since 1.0.0
+	 * @param array $field Field data.
+	 */
+	public function text_field( array $field ) {
+		$field = wp_parse_args(
+			$field,
+			array(
+				'attributes'    => array(),
+				'class'         => 'regular-text',
+				'desc'          => '',
+				'name'          => $field['id'],
+				'placeholder'   => '',
+				'style'         => '',
+				'type'          => 'text',
+				'value'         => '',
+				'wrapper_class' => '',
+				'required'      => false,
+			)
+		);
+
+		$wrapper_attributes = array(
+			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'setting-row', $field['id'] . '-setting-row' ) ) ),
+			'id'    => $field['id'] . '-setting-row',
+		);
+
+		$label_attributes = array(
+			'for' => $field['id'],
+		);
+
+		$field_attributes                = (array) $field['attributes'];
+		$field_attributes['class']       = $field['class'];
+		$field_attributes['id']          = $field['id'];
+		$field_attributes['name']        = ! empty( $field['name'] ) ? $field['name'] : $field['id'];
+		$field_attributes['placeholder'] = $field['placeholder'];
+		$field_attributes['style']       = $field['style'];
+		$field_attributes['type']        = $field['type'];
+		$field_attributes['value']       = ! empty( $field['value'] ) ? $field['value'] : get_option( $field['name'] );
+
+		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
+			$field_attributes['required'] = 'required';
+		}
+
+		$description = ! empty( $field['desc'] ) ? $field['desc'] : '';
+
+		?>
+		<tr <?php $this->html_attrs( $wrapper_attributes ); ?>>
+			<th>
+				<label <?php $this->html_attrs( $label_attributes ); ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
+			</th>
+			<td>
+				<input <?php $this->html_attrs( $field_attributes ); ?> />
+
+				<?php if ( ! empty( $description ) ) : ?>
+					<p class="description"><?php echo wp_kses_post( $description ); ?></p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -72,42 +169,64 @@ class Field {
 	}
 
 	/**
-	 * Render number input field.
+	 * Output a textarea input field row.
 	 *
 	 * @since 1.0.0
-	 * @param string $field_name    Field name.
-	 * @param array  $field_args    Field options.
+	 * @param array $field Field data.
 	 */
-	public function number_field( string $field_name, array $field_args = array() ) {
-		if ( empty( $field_name ) ) {
-			return;
-		}
-
-		$default_args = array(
-			'id'          => sanitize_title( str_replace( '_', '-', join( '-', array( 'setting-field', $field_name ) ) ) ),
-			'label'       => __( 'Field Label', 'wp-ajaxify' ),
-			'placeholder' => '',
-			'desc'        => '',
-			'required'    => false,
-			'step'        => 'any',
-			'min'         => '',
-			'max'         => '',
+	public function textarea_field( array $field ) {
+		$field = wp_parse_args(
+			$field,
+			array(
+				'attributes'    => array(),
+				'class'         => 'regular-text',
+				'cols'          => 20,
+				'desc'          => '',
+				'name'          => $field['id'],
+				'placeholder'   => '',
+				'rows'          => 3,
+				'style'         => '',
+				'value'         => '',
+				'wrapper_class' => '',
+				'required'      => false,
+			)
 		);
 
-		$args = wp_parse_args( $field_args, $default_args );
+		$wrapper_attributes = array(
+			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'setting-row', $field['id'] . '-setting-row' ) ) ),
+			'id'    => $field['id'] . '-setting-row',
+		);
 
-		$required = rest_sanitize_boolean( $args['required'] ) ? 'required' : '';
+		$label_attributes = array(
+			'for' => $field['id'],
+		);
 
-		// Fetch option value.
-		$value = get_option( $field_name );
+		$field_attributes                = (array) $field['attributes'];
+		$field_attributes['class']       = $field['class'];
+		$field_attributes['cols']        = $field['cols'];
+		$field_attributes['id']          = $field['id'];
+		$field_attributes['name']        = ! empty( $field['name'] ) ? $field['name'] : $field['id'];
+		$field_attributes['placeholder'] = $field['placeholder'];
+		$field_attributes['rows']        = $field['rows'];
+		$field_attributes['style']       = $field['style'];
+		$field_attributes['value']       = ! empty( $field['value'] ) ? $field['value'] : get_option( $field['name'] );
+
+		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
+			$field_attributes['required'] = 'required';
+		}
+
+		$description = ! empty( $field['desc'] ) ? $field['desc'] : '';
+
 		?>
-		<tr id="<?php echo esc_attr( join( '-', array( 'setting-row', $args['id'] ) ) ); ?>">
-			<th><?php echo esc_html( $args['label'] ); ?></th>
+		<tr <?php $this->html_attrs( $wrapper_attributes ); ?>>
+			<th>
+				<label <?php $this->html_attrs( $label_attributes ); ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
+			</th>
 			<td>
-				<input type="number" name="<?php echo esc_attr( $field_name ); ?>" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" <?php echo esc_attr( $required ); ?> min="<?php echo esc_attr( $args['min'] ); ?>" max="<?php echo esc_attr( $args['max'] ); ?>" step="<?php echo esc_attr( $args['step'] ); ?>" />
+				<textarea <?php $this->html_attrs( $field_attributes ); ?>><?php echo esc_textarea( $field['value'] ); ?></textarea>
 
-				<?php if ( ! empty( $args['desc'] ) ) : ?>
-					<div class="description"><?php echo wp_kses_post( $args['desc'] ); ?></div>
+				<?php if ( ! empty( $description ) ) : ?>
+					<p class="description"><?php echo wp_kses_post( $description ); ?></p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -115,130 +234,64 @@ class Field {
 	}
 
 	/**
-	 * Render textarea input field.
+	 * Output a select dropdown field row.
 	 *
 	 * @since 1.0.0
-	 * @param string $field_name    Field name.
-	 * @param array  $field_args    Field options.
+	 * @param array $field Field data.
 	 */
-	public function textarea_field( string $field_name, array $field_args = array() ) {
-		if ( empty( $field_name ) ) {
-			return;
-		}
-
-		$default_args = array(
-			'id'          => sanitize_title( str_replace( '_', '-', join( '-', array( 'setting-field', $field_name ) ) ) ),
-			'label'       => __( 'Field Label', 'wp-ajaxify' ),
-			'placeholder' => '',
-			'desc'        => '',
-			'rows'        => 4,
-			'required'    => false,
+	public function dropdown_field( array $field ) {
+		$field = wp_parse_args(
+			$field,
+			array(
+				'attributes'    => array(),
+				'class'         => 'select',
+				'desc'          => '',
+				'name'          => $field['id'],
+				'style'         => '',
+				'value'         => '',
+				'wrapper_class' => '',
+				'required'      => false,
+			)
 		);
 
-		$args = wp_parse_args( $field_args, $default_args );
-
-		$required = rest_sanitize_boolean( $args['required'] ) ? 'required' : '';
-
-		// Fetch option value.
-		$value = get_option( $field_name );
-		?>
-		<tr id="<?php echo esc_attr( join( '-', array( 'setting-row', $args['id'] ) ) ); ?>">
-			<th><?php echo esc_html( $args['label'] ); ?></th>
-			<td>
-				<textarea type="text" name="<?php echo esc_attr( $field_name ); ?>" class="regular-text" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" <?php echo esc_attr( $required ); ?> rows="<?php echo esc_attr( $args['rows'] ); ?>" ><?php echo esc_attr( $value ); ?></textarea>
-
-				<?php if ( ! empty( $args['desc'] ) ) : ?>
-					<div class="description"><?php echo wp_kses_post( $args['desc'] ); ?></div>
-				<?php endif; ?>
-			</td>
-		</tr>
-		<?php
-	}
-
-	/**
-	 * Render color input field.
-	 *
-	 * @since 1.0.0
-	 * @param string $field_name    Field name.
-	 * @param array  $field_args    Field options.
-	 */
-	public function color_field( string $field_name, array $field_args = array() ) {
-		if ( empty( $field_name ) ) {
-			return;
-		}
-
-		$default_args = array(
-			'id'    => sanitize_title( str_replace( '_', '-', join( '-', array( 'setting-field', $field_name ) ) ) ),
-			'label' => __( 'Field Label', 'wp-ajaxify' ),
-			'desc'  => '',
+		$wrapper_attributes = array(
+			'class' => $field['wrapper_class'] . " form-field {$field['id']}_field",
 		);
 
-		$args = wp_parse_args( $field_args, $default_args );
-
-		// Fetch option value.
-		$value = get_option( $field_name );
-		?>
-		<tr id="<?php echo esc_attr( join( '-', array( 'setting-row', $args['id'] ) ) ); ?>">
-			<th><?php echo esc_html( $args['label'] ); ?></th>
-			<td>
-				<input type="text" name="<?php echo esc_attr( $field_name ); ?>" class="wp-ajaxify-color-picker" value="<?php echo esc_attr( $value ); ?>" />
-
-				<?php if ( ! empty( $args['desc'] ) ) : ?>
-					<div class="description"><?php echo wp_kses_post( $args['desc'] ); ?></div>
-				<?php endif; ?>
-			</td>
-		</tr>
-		<?php
-	}
-
-	/**
-	 * Render dropdown field.
-	 *
-	 * @since 1.0.0
-	 * @param string $field_name    Field name.
-	 * @param array  $field_args    Field options.
-	 */
-	public function dropdown_field( string $field_name, array $field_args = array() ) {
-		if ( empty( $field_name ) ) {
-			return;
-		}
-
-		$default_args = array(
-			'id'      => sanitize_title( str_replace( '_', '-', $field_name ) ),
-			'label'   => __( 'Field Label', 'wp-ajaxify' ),
-			'options' => array(),
-			'desc'    => '',
-			'sb'      => false,
+		$label_attributes = array(
+			'for' => $field['id'],
 		);
 
-		$args = wp_parse_args( $field_args, $default_args );
+		$field_attributes          = (array) $field['attributes'];
+		$field_attributes['class'] = $field['class'];
+		$field_attributes['id']    = $field['id'];
+		$field_attributes['name']  = ! empty( $field['name'] ) ? $field['name'] : $field['id'];
+		$field_attributes['style'] = $field['style'];
+		$field_attributes['value'] = ! empty( $field['value'] ) ? $field['value'] : get_option( $field['name'] );
 
-		if ( empty( $args['options'] ) ) {
-			return;
+		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
+			$field_attributes['required'] = 'required';
 		}
 
-		// Fetch option value.
-		$value = get_option( $field_name );
+		$description = ! empty( $field['desc'] ) ? $field['desc'] : '';
+
 		?>
-		<tr id="<?php echo esc_attr( join( '-', array( 'setting-row', $args['id'] ) ) ); ?>">
-			<th><?php echo esc_html( $args['label'] ); ?></th>
+		<tr <?php $this->html_attrs( $wrapper_attributes ); ?>>
+			<th>
+				<label <?php $this->html_attrs( $label_attributes ); ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
+			</th>
 			<td>
-				<select name="<?php echo esc_attr( $field_name ); ?>">
+				<select <?php $this->html_attrs( $field_attributes ); ?>>
 					<?php
-					foreach ( $args['options'] as $option_value => $option_name ) {
-						$check_value = true === $args['sb'] ? rest_sanitize_boolean( $option_value ) : $option_value;
-						printf(
-							'<option value="%1$s" %3$s>%2$s</option>',
-							esc_html( $option_value ),
-							esc_html( $option_name ),
-							selected( $check_value, $value, false )
-						);
+					foreach ( $field['options'] as $key => $value ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo '<option value="' . esc_attr( $key ) . '"' . $this->selected( $key, $field['value'] ) . '>' . esc_html( $value ) . '</option>';
 					}
 					?>
 				</select>
 
-				<?php if ( ! empty( $args['desc'] ) ) : ?>
-					<div class="description"><?php echo wp_kses_post( $args['desc'] ); ?></div>
+					<?php if ( ! empty( $description ) ) : ?>
+					<p class="description"><?php echo wp_kses_post( $description ); ?></p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -246,38 +299,32 @@ class Field {
 	}
 
 	/**
-	 * Render yes/no dropdown field.
+	 * Render yes/no dropdown field row.
 	 *
 	 * @since 1.0.0
-	 * @param string $field_name    Field name.
-	 * @param array  $field_args    Field options.
+	 * @param array $field Field data.
 	 */
-	public function yes_no_field( string $field_name, array $field_args = array() ) {
-		$field_args['options'] = array(
-			true  => __( 'Yes', 'wp-ajaxify' ),
-			false => __( 'No', 'wp-ajaxify' ),
+	public function yes_no_field( array $field ) {
+		$field['options'] = array(
+			'1' => __( 'Yes', 'wp-ajaxify' ),
+			'0' => __( 'No', 'wp-ajaxify' ),
 		);
 
-		$field_args['sb'] = true;
-
-		$this->dropdown_field( $field_name, $field_args );
+		$this->dropdown_field( $field );
 	}
 
 	/**
 	 * Render true/false dropdown field.
 	 *
 	 * @since 1.0.0
-	 * @param string $field_name    Field name.
-	 * @param array  $field_args    Field options.
+	 * @param array $field Field data.
 	 */
-	public function true_false_field( string $field_name, array $field_args = array() ) {
-		$field_args['options'] = array(
-			true  => __( 'True', 'wp-ajaxify' ),
-			false => __( 'False', 'wp-ajaxify' ),
+	public function true_false_field( array $field ) {
+		$field['options'] = array(
+			'1' => __( 'True', 'wp-ajaxify' ),
+			'0' => __( 'False', 'wp-ajaxify' ),
 		);
 
-		$field_args['sb'] = true;
-
-		$this->dropdown_field( $field_name, $field_args );
+		$this->dropdown_field( $field );
 	}
 }

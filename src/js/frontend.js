@@ -1,8 +1,6 @@
-/* eslint-disable no-nested-ternary */
 /* global wp_ajaxify_params, Ajaxify */
-
 'use strict';
-( function( $, wap ) {
+( function( wap ) {
 	/**
 	 * Return Loader html.
 	 *
@@ -41,34 +39,34 @@
 	}
 
 	const args = {
-		elements: wap.elements,
-		selector: wap.selector,
-		forms: wap.forms === '' ? false : wap.forms,
-		canonical: wap.canonical ? true : false,
-		refresh: wap.refresh ? true : false,
-		requestDelay: parseInt( wap.requestDelay, 10 ),
-		scrolltop: wap.scrolltop === 's' ? 's' : ( wap.scrolltop ? true : false ),
-		scrollDelay: parseInt( wap.scrollDelay, 10 ),
-		bodyClasses: wap.bodyClasses ? true : false,
-		deltas: wap.deltas ? true : false,
-		asyncdef: wap.asyncdef ? true : false,
-		alwayshints: wap.alwayshints,
-		inline: wap.inline ? true : false,
-		inlinehints: wap.inlinehints,
-		inlineskip: wap.inlineskip,
-		inlineappend: wap.inlineappend ? true : false,
-		intevents: wap.intevents ? true : false,
-		style: wap.style ? true : false,
-		prefetchoff: wap.prefetchoff === '1' ? true : ( wap.prefetchoff === '' ? false : wap.prefetchoff ),
-		verbosity: wap.verbosity ? true : false,
-		memoryoff: wap.memoryoff === '1' ? true : ( wap.memoryoff === '' ? false : wap.memoryoff ),
-		passCount: wap.passCount ? true : false,
+		elements: wap.ajaxify.elements,
+		selector: wap.ajaxify.selector,
+		forms: wap.ajaxify.forms,
+		canonical: wap.ajaxify.canonical,
+		refresh: wap.ajaxify.refresh,
+		requestDelay: parseInt( wap.ajaxify.requestDelay, 10 ),
+		scrolltop: wap.ajaxify.scrolltop,
+		scrollDelay: parseInt( wap.ajaxify.scrollDelay, 10 ),
+		bodyClasses: wap.ajaxify.bodyClasses,
+		deltas: wap.ajaxify.deltas,
+		asyncdef: wap.ajaxify.asyncdef,
+		alwayshints: wap.ajaxify.alwayshints,
+		inline: wap.ajaxify.inline,
+		inlinehints: wap.ajaxify.inlinehints,
+		inlineskip: wap.ajaxify.inlineskip,
+		inlineappend: wap.ajaxify.inlineappend,
+		intevents: wap.ajaxify.intevents,
+		style: wap.ajaxify.style,
+		prefetchoff: wap.ajaxify.prefetchoff,
+		verbosity: wap.ajaxify.verbosity,
+		memoryoff: wap.ajaxify.memoryoff,
+		passCount: wap.ajaxify.passCount,
 		pluginon: true,
 	};
 
 	new Ajaxify( args );
 
-	if ( wap.loader && wap.loader.enable ) {
+	if ( wap.loader.enable ) {
 		window.addEventListener( 'pronto.request', function() {
 			document.querySelector( 'body' ).insertAdjacentHTML( 'afterbegin', wp_ajaxify_loader( ) );
 		} );
@@ -80,4 +78,4 @@
 			}
 		} );
 	}
-}( jQuery, wp_ajaxify_params ) );
+}( wp_ajaxify_params ) );

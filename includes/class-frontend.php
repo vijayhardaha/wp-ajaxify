@@ -58,9 +58,9 @@ class Frontend {
 	 * @return string
 	 */
 	private function generate_css() {
-		$primary_color   = get_option( '_wp_ajaxify_loader_primary_color' );
-		$overlay_color   = get_option( '_wp_ajaxify_loader_overlay_color' );
-		$overlay_opacity = get_option( '_wp_ajaxify_loader_overlay_opacity' );
+		$primary_color   = $this->setting( 'loader_primary_color' );
+		$overlay_color   = $this->setting( 'loader_overlay_color' );
+		$overlay_opacity = $this->setting( 'loader_overlay_opacity' );
 
 		$css = ':root {
 			--wp-ajaxfy-primary-color: ' . $primary_color . ';
@@ -81,11 +81,56 @@ class Frontend {
 	private function get_ajaxify_url() {
 		$suffix     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$plugin_url = wp_ajaxify()->info()->plugin_url( 'assets/js/ajaxify' . $suffix . '.js' );
-		$cdn_url    = get_option( '_wp_ajaxify_cdn_url', '' );
+		$cdn_url    = $this->setting( 'cdn_url' );
 
 		$url = empty( $cdn_url ) ? $plugin_url : $cdn_url;
 
 		return $url;
+	}
+
+	/**
+	 * Converts a string (e.g. 'yes' or 'no') to a bool.
+	 *
+	 * @since 1.1.0
+	 * @param string|bool $string String to convert. If a bool is passed it will be returned as-is.
+	 * @return bool
+	 */
+	private function str_to_bool( $string ) {
+		return is_bool( $string ) ? $string : ( 'yes' === strtolower( $string ) || 1 === $string || 'true' === strtolower( $string ) || '1' === $string );
+	}
+
+	/**
+	 * Return plugin setting by key.
+	 *
+	 * @since 1.1.0
+	 * @param string $key       Option key without plugin option prefix.
+	 * @param bool   $make_bool Convert to bool.
+	 * @param bool   $convert   Convert value to a special format (Default: 0 - None)
+	 *                          1: Convert input value to either true/false or return string.
+	 *                          2: Convert textarea values to either false or in comma separated values.
+	 * @return mixed
+	 */
+	private function setting( $key, $make_bool = false, $convert = 0 ) {
+		$option_key = '_wp_ajaxify_' . trim( $key );
+		$value      = get_option( $option_key );
+		$convert    = absint( $convert );
+
+		if ( ! empty( $convert ) ) {
+			$value = (string) $value;
+			if ( 1 === $convert ) {
+				$value = ( 'true' === strtolower( $value ) || '1' === $value ) ? true : ( ( empty( $value ) || 'false' === $value ) ? false : $value );
+			}
+
+			if ( 2 === $convert ) {
+				$value = empty( $value ) ? false : join( ', ', array_filter( explode( PHP_EOL, str_replace( "\r", '', $value ) ) ) );
+			}
+		}
+
+		if ( ! empty( $make_bool ) ) {
+			$value = $this->str_to_bool( $value );
+		}
+
+		return $value;
 	}
 
 	/**
@@ -96,32 +141,34 @@ class Frontend {
 	 */
 	private function get_ajaxify_params() {
 		$settings = array(
-			'elements'     => get_option( '_wp_ajaxify_elements', '' ),
-			'selector'     => get_option( '_wp_ajaxify_selector', '' ),
-			'forms'        => get_option( '_wp_ajaxify_forms', '' ),
-			'canonical'    => get_option( '_wp_ajaxify_canonical' ),
-			'refresh'      => get_option( '_wp_ajaxify_refresh' ),
-			'requestDelay' => absint( get_option( '_wp_ajaxify_requestdelay' ) ),
-			'scrolltop'    => $this->true_false_format( get_option( '_wp_ajaxify_scrolltop' ) ),
-			'scrollDelay'  => absint( get_option( '_wp_ajaxify_scrolldelay' ) ),
-			'bodyClasses'  => get_option( '_wp_ajaxify_bodyclasses' ),
-			'deltas'       => get_option( '_wp_ajaxify_deltas' ),
-			'asyncdef'     => get_option( '_wp_ajaxify_asyncdef' ),
-			'alwayshints'  => $this->false_format( get_option( '_wp_ajaxify_alwayshints' ) ),
-			'inline'       => get_option( '_wp_ajaxify_inline' ),
-			'inlinehints'  => $this->false_format( get_option( '_wp_ajaxify_inlinehints' ) ),
-			'inlineskip'   => $this->false_format( get_option( '_wp_ajaxify_inlineskip' ) ),
-			'inlineappend' => get_option( '_wp_ajaxify_inlineappend' ),
-			'intevents'    => get_option( '_wp_ajaxify_intevents' ),
-			'style'        => get_option( '_wp_ajaxify_style' ),
-			'prefetchoff'  => $this->true_false_format( get_option( '_wp_ajaxify_prefetchoff' ) ),
-			'verbosity'    => get_option( '_wp_ajaxify_verbosity' ),
-			'memoryoff'    => $this->true_false_format( get_option( '_wp_ajaxify_memoryoff' ) ),
-			'passCount'    => get_option( '_wp_ajaxify_passcount' ),
-			'loader'       => array(
-				'enable' => get_option( '_wp_ajaxify_loader_enable' ),
-				'type'   => get_option( '_wp_ajaxify_loader_type' ),
-				'html'   => trim( get_option( '_wp_ajaxify_loader_html' ) ),
+			'ajaxify' => array(
+				'elements'     => $this->setting( 'elements' ),
+				'selector'     => $this->setting( 'selector' ),
+				'forms'        => $this->setting( 'forms', false, 1 ),
+				'canonical'    => $this->setting( 'canonical', true ),
+				'refresh'      => $this->setting( 'refresh', true ),
+				'requestDelay' => absint( $this->setting( 'requestdelay' ) ),
+				'scrolltop'    => $this->setting( 'scrolltop', false, 1 ),
+				'scrollDelay'  => absint( $this->setting( 'scrolldelay' ) ),
+				'bodyClasses'  => $this->setting( 'bodyclasses', true ),
+				'deltas'       => $this->setting( 'deltas', true ),
+				'asyncdef'     => $this->setting( 'asyncdef', true ),
+				'alwayshints'  => $this->setting( 'alwayshints', false, 2 ),
+				'inline'       => $this->setting( 'inline', true ),
+				'inlinehints'  => $this->setting( 'inlinehints', false, 2 ),
+				'inlineskip'   => $this->setting( 'inlineskip', false, 2 ),
+				'inlineappend' => $this->setting( 'inlineappend', true ),
+				'intevents'    => $this->setting( 'intevents', true ),
+				'style'        => $this->setting( 'style', false, 1 ),
+				'prefetchoff'  => $this->setting( 'prefetchoff', false, 1 ),
+				'verbosity'    => $this->setting( 'verbosity', true ),
+				'passCount'    => $this->setting( 'passcount', true ),
+				'memoryoff'    => $this->setting( 'memoryoff', false, 1 ),
+			),
+			'loader'  => array(
+				'enable' => $this->setting( 'loader_enable', true ),
+				'type'   => $this->setting( 'loader_type' ),
+				'html'   => trim( $this->setting( 'loader_html' ) ),
 			),
 		);
 
@@ -135,7 +182,7 @@ class Frontend {
 	 * @return bool
 	 */
 	private function is_enabled() {
-		return get_option( '_wp_ajaxify_enable' );
+		return $this->setting( 'enable', true );
 	}
 
 	/**
@@ -145,29 +192,7 @@ class Frontend {
 	 * @return bool
 	 */
 	private function has_valid_selectors() {
-		return ( ! empty( get_option( '_wp_ajaxify_elements' ) ) && ! empty( get_option( '_wp_ajaxify_selector' ) ) );
-	}
-
-	/**
-	 * Convert textarea values to either false or in comma separated values.
-	 *
-	 * @since 1.0.0
-	 * @param string $value Textarea value.
-	 * @return bool|string
-	 */
-	private function false_format( $value ) {
-		return empty( $value ) ? false : join( ', ', array_filter( explode( PHP_EOL, str_replace( "\r", '', $value ) ) ) );
-	}
-
-	/**
-	 * Convert input value to either true/false or in comma separated values.
-	 *
-	 * @since 1.0.0
-	 * @param string $value Input value.
-	 * @return bool|string
-	 */
-	private function true_false_format( $value ) {
-		return 'true' === $value ? true : ( ( empty( $value ) || 'false' === $value ) ? false : $value );
+		return ( ! empty( $this->setting( 'elements' ) ) && ! empty( $this->setting( 'selector' ) ) );
 	}
 
 	/**
