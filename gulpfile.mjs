@@ -1,21 +1,23 @@
 /**
  * Define required packages.
  */
-const gulp = require( 'gulp' );
-const autoprefixer = require( 'autoprefixer' );
-const cleancss = require( 'gulp-clean-css' );
-const clone = require( 'gulp-clone' );
-const concat = require( 'gulp-concat' );
-const del = require( 'del' );
-const duplicates = require( 'postcss-discard-duplicates' );
-const gcmq = require( 'gulp-group-css-media-queries' );
-const merge = require( 'merge-stream' );
-const plumber = require( 'gulp-plumber' );
-const postcss = require( 'gulp-postcss' );
-const rename = require( 'gulp-rename' );
-const sass = require( 'gulp-sass' )( require( 'sass' ) );
-const terser = require( 'gulp-terser' );
+import gulp from 'gulp';
+import autoprefixer from 'autoprefixer';
+import cleancss from 'gulp-clean-css';
+import clone from 'gulp-clone';
+import concat from 'gulp-concat';
+import { deleteSync as del } from 'del';
+import duplicates from 'postcss-discard-duplicates';
+import gcmq from 'gulp-group-css-media-queries';
+import merge from 'merge-stream';
+import plumber from 'gulp-plumber';
+import postcss from 'gulp-postcss';
+import rename from 'gulp-rename';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+import terser from 'gulp-terser';
 
+const sass = gulpSass( dartSass );
 /**
  * Paths to base asset directories. With trailing slashes.
  * - `paths.src` - Path to the source files. Default: `src/`
@@ -24,6 +26,21 @@ const terser = require( 'gulp-terser' );
 const paths = {
 	src: 'src/',
 	dist: 'assets/',
+	scss: {
+		src: {
+			dashboard: [ 'src/scss/dashboard.scss' ],
+			frontend: [ 'src/scss/frontend.scss' ],
+		},
+		dest: 'assets/css',
+	},
+	js: {
+		src: {
+			ajaxify: [ 'src/js/ajaxify.min.js' ],
+			dashboard: [ 'src/js/dashboard.js' ],
+			frontend: [ 'src/js/frontend.js' ],
+		},
+		dest: 'assets/js',
+	},
 };
 
 /**
@@ -32,12 +49,7 @@ const paths = {
  * @param {Function} done
  */
 const buildCSS = ( done ) => {
-	const entries = {
-		dashboard: [ 'src/scss/dashboard.scss' ],
-		frontend: [ 'src/scss/frontend.scss' ],
-	};
-
-	for ( const [ name, path ] of Object.entries( entries ) ) {
+	for ( const [ name, path ] of Object.entries( paths.scss.src ) ) {
 		const baseSource = gulp
 			.src( path )
 			.pipe( plumber() )
@@ -53,7 +65,7 @@ const buildCSS = ( done ) => {
 			.pipe( cleancss() )
 			.pipe( rename( { suffix: '.min' } ) );
 
-		merge( baseSource, minified ).pipe( gulp.dest( paths.dist + 'css' ) );
+		merge( baseSource, minified ).pipe( gulp.dest( paths.scss.dest ) );
 	}
 
 	done();
@@ -65,13 +77,7 @@ const buildCSS = ( done ) => {
  * @param {Function} done
  */
 const buildJS = ( done ) => {
-	const entries = {
-		ajaxify: [ 'src/js/ajaxify.min.js' ],
-		dashboard: [ 'src/js/dashboard.js' ],
-		frontend: [ 'src/js/frontend.js' ],
-	};
-
-	for ( const [ name, path ] of Object.entries( entries ) ) {
+	for ( const [ name, path ] of Object.entries( paths.js.src ) ) {
 		const baseSource = gulp
 			.src( path )
 			.pipe( plumber() )
@@ -83,7 +89,7 @@ const buildJS = ( done ) => {
 			.pipe( terser() )
 			.pipe( rename( { suffix: '.min' } ) );
 
-		merge( baseSource, minified ).pipe( gulp.dest( paths.dist + 'js' ) );
+		merge( baseSource, minified ).pipe( gulp.dest( paths.js.dest ) );
 	}
 
 	done();
@@ -112,7 +118,10 @@ const watchAssets = ( done ) => {
 	done();
 };
 
-gulp.task( 'css', gulp.series( buildCSS ) );
-gulp.task( 'js', gulp.series( buildJS ) );
-gulp.task( 'build', gulp.series( cleanAssets, buildCSS, buildJS ) );
-gulp.task( 'watch', gulp.series( watchAssets ) );
+const css = gulp.series( buildCSS, );
+const js = gulp.series( buildJS );
+const build = gulp.series( cleanAssets, buildCSS, buildJS );
+const watcher = gulp.series( watchAssets );
+
+export { css, js, build };
+export { watcher as watch };
