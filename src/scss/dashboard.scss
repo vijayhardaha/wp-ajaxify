@@ -8,26 +8,41 @@ $white: #fff;
 
 	& &__desc {
 
-		span {
-
-			&:not(:last-child) {
-
-				&::after {
-					content: "|";
-					margin: 0 3px;
-				}
-			}
-		}
-
 		a {
 			outline: none;
 			box-shadow: none;
+		}
+
+		p {
+
+			&:not(:first-child) {
+				margin-top: 0.1em;
+			}
+
+			&:not(:last-child) {
+				margin-bottom: 0;
+			}
+
+			&.links {
+
+				span {
+
+					&:not(:last-child) {
+
+						&::after {
+							content: "|";
+							margin: 0 3px;
+						}
+					}
+				}
+			}
 		}
 	}
 
 	& &__nav {
 
 		.nav-tab-wrapper {
+			margin: 0 0 -1px 1px;
 			border-color: $gray;
 
 			a {
@@ -36,6 +51,7 @@ $white: #fff;
 				padding: 10px 20px;
 				border-color: $gray;
 				outline: none;
+				background: #e8e8e8;
 				box-shadow: none;
 
 				&:hover {
@@ -63,11 +79,9 @@ $white: #fff;
 		table {
 			margin: 0;
 
-			div.description {
-				display: block;
-				margin-top: 5px;
+			label {
 				font-size: 13px;
-				line-height: 1.6;
+				font-weight: 600;
 			}
 
 			code {
@@ -76,70 +90,77 @@ $white: #fff;
 			}
 
 			input[type="number"] {
-				min-width: 80px;
+				width: 80px;
 				padding-right: 0;
 			}
 
-			tr.heading {
-
-				th {
-					margin: 0;
-					padding: 15px 20px;
-					background-color: $light-gray;
-				}
-
-				td {
-					margin: 0;
-					padding: 15px 20px;
-					background-color: $light-gray;
-				}
-				border-bottom: 1px dashed $gray;
-				border-left: 4px solid $dark;
-			}
-
-			tr.submit {
-
-				th {
-					margin: 0;
-					padding: 15px 20px;
-					background-color: $light-gray;
-				}
-
-				td {
-					margin: 0;
-					padding: 15px 20px;
-					background-color: $light-gray;
-				}
-
-				p {
-					margin: 0;
-					padding: 0;
-				}
-			}
-
 			tr {
+				border-right: 4px solid transparent;
+				border-left: 4px solid transparent;
 
-				th {
-					padding: 15px 20px;
-					border-bottom: 1px dashed $gray;
+				&:not(:first-child) {
+					border-top: 1px dashed $gray;
 				}
 
+				th,
 				td {
+					margin: 0;
 					padding: 15px 20px;
-					border-bottom: 1px dashed $gray;
 				}
-			}
-		}
 
-		& &__page-content-text {
-			padding: 20px;
+				@media screen and (max-width: 782px) {
 
-			p {
-				margin-top: 0;
-				margin-bottom: 15px;
+					&:not(.submit-row) {
 
-				&:last-child {
-					margin-bottom: 0;
+						th {
+							padding-bottom: 0;
+						}
+
+						td {
+							padding-top: 7px;
+						}
+					}
+				}
+
+				&.heading-row,
+				&.submit-row {
+					border-top: 0;
+					border-right-color: $light-gray;
+					border-left-color: $dark;
+
+					+ tr {
+						border-top: 0;
+					}
+
+					th,
+					td {
+						background-color: $light-gray;
+					}
+
+					p {
+						margin: 0;
+						padding: 0;
+					}
+				}
+
+				&.heading-row {
+
+					th {
+						font-size: 14px;
+					}
+
+					td {
+						opacity: 0.85;
+						font-size: 12px;
+					}
+				}
+
+				&.submit-row {
+					border-left-color: $light-gray;
+
+					input[type="submit"] {
+						margin-bottom: 0;
+					}
 				}
 			}
 		}
