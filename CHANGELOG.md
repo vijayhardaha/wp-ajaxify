@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.1 - Oct 05, 2022
+
+-   Fix: Fix version in plugin main file.
+-   Enhance: Add new export ignore paths.
+
 ## 1.1.0 - Oct 05, 2022
 
 -   CI(js): Bump ajaxify version to 8.2.6
