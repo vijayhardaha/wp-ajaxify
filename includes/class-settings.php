@@ -69,7 +69,7 @@ class Settings {
 				'key'      => '_wp_ajaxify_forms',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'string',
-				'default'  => 'false',
+				'default'  => '',
 				'callback' => 'sanitize_text_field',
 			),
 			array(
@@ -90,14 +90,14 @@ class Settings {
 				'key'      => '_wp_ajaxify_requestdelay',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'number',
-				'default'  => 100,
+				'default'  => 10,
 				'callback' => 'absint',
 			),
 			array(
 				'key'      => '_wp_ajaxify_scrolltop',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'string',
-				'default'  => '1',
+				'default'  => 'true',
 				'callback' => 'sanitize_text_field',
 			),
 			array(
@@ -174,14 +174,14 @@ class Settings {
 				'key'      => '_wp_ajaxify_style',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'string',
-				'default'  => '0',
+				'default'  => '1',
 				'callback' => 'sanitize_text_field',
 			),
 			array(
 				'key'      => '_wp_ajaxify_prefetchoff',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'string',
-				'default'  => '1',
+				'default'  => 'true',
 				'callback' => 'sanitize_text_field',
 			),
 			array(
@@ -202,7 +202,7 @@ class Settings {
 				'key'      => '_wp_ajaxify_memoryoff',
 				'group'    => 'wp_ajaxify_settings',
 				'type'     => 'string',
-				'default'  => 'true',
+				'default'  => 'false',
 				'callback' => 'sanitize_text_field',
 			),
 			array(
