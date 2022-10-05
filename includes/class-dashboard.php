@@ -305,7 +305,7 @@ class Dashboard {
 						'desc'        => __( 'In Milliseconds - Delay of Pronto request.', 'wp-ajaxify' ),
 						'placeholder' => __( '(e.g. 1000)', 'wp-ajaxify' ),
 						'attributes'  => array(
-							'step' => 100,
+							'step' => 10,
 							'min'  => 0,
 						),
 					)
@@ -333,7 +333,7 @@ class Dashboard {
 						'desc'        => __( 'Minimal delay on all scroll effects in Milliseconds, useful in case of e.g. smooth scroll', 'wp-ajaxify' ),
 						'placeholder' => __( '(e.g. 1000)', 'wp-ajaxify' ),
 						'attributes'  => array(
-							'step' => 100,
+							'step' => 10,
 							'min'  => 0,
 						),
 
