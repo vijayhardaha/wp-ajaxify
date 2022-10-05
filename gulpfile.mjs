@@ -101,7 +101,7 @@ const buildJS = ( done ) => {
  * @param {Function} done
  */
 const cleanAssets = ( done ) => {
-	del.sync( paths.dist );
+	del( paths.dist );
 
 	done();
 };
