@@ -76,6 +76,14 @@ $white: #fff;
 		border-color: $gray;
 		background-color: $white;
 
+		p.description {
+			display: block;
+			margin-top: 5px;
+			opacity: 0.85;
+			font-size: 12px;
+			line-height: 1.4;
+		}
+
 		table {
 			margin: 0;
 
