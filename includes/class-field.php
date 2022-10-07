@@ -114,21 +114,20 @@ class Field {
 	 * @param array $field Field data.
 	 */
 	public function text_field( array $field ) {
-		$field = wp_parse_args(
-			$field,
-			array(
-				'attributes'    => array(),
-				'class'         => 'regular-text',
-				'desc'          => '',
-				'name'          => $field['id'],
-				'placeholder'   => '',
-				'style'         => '',
-				'type'          => 'text',
-				'value'         => '',
-				'wrapper_class' => '',
-				'required'      => false,
-			)
+		$args = array(
+			'attributes'    => array(),
+			'class'         => 'regular-text',
+			'desc'          => '',
+			'name'          => $field['id'],
+			'placeholder'   => '',
+			'required'      => false,
+			'style'         => '',
+			'type'          => 'text',
+			'value'         => '',
+			'wrapper_class' => '',
 		);
+
+		$field = wp_parse_args( $field, $args );
 
 		$wrapper_attributes = array(
 			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'setting-row', $field['id'] . '-setting-row' ) ) ),
@@ -142,7 +141,7 @@ class Field {
 		$field_attributes                = (array) $field['attributes'];
 		$field_attributes['class']       = $field['class'];
 		$field_attributes['id']          = $field['id'];
-		$field_attributes['name']        = ! empty( $field['name'] ) ? $field['name'] : $field['id'];
+		$field_attributes['name']        = $field['name'];
 		$field_attributes['placeholder'] = $field['placeholder'];
 		$field_attributes['style']       = $field['style'];
 		$field_attributes['type']        = $field['type'];
@@ -177,22 +176,21 @@ class Field {
 	 * @param array $field Field data.
 	 */
 	public function textarea_field( array $field ) {
-		$field = wp_parse_args(
-			$field,
-			array(
-				'attributes'    => array(),
-				'class'         => 'regular-text',
-				'cols'          => 20,
-				'desc'          => '',
-				'name'          => $field['id'],
-				'placeholder'   => '',
-				'rows'          => 3,
-				'style'         => '',
-				'value'         => '',
-				'wrapper_class' => '',
-				'required'      => false,
-			)
+		$args = array(
+			'attributes'    => array(),
+			'class'         => 'regular-text',
+			'cols'          => 20,
+			'desc'          => '',
+			'name'          => $field['id'],
+			'placeholder'   => '',
+			'required'      => false,
+			'rows'          => 3,
+			'style'         => '',
+			'value'         => '',
+			'wrapper_class' => '',
 		);
+
+		$field = wp_parse_args( $field, $args );
 
 		$wrapper_attributes = array(
 			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'setting-row', $field['id'] . '-setting-row' ) ) ),
@@ -207,7 +205,7 @@ class Field {
 		$field_attributes['class']       = $field['class'];
 		$field_attributes['cols']        = $field['cols'];
 		$field_attributes['id']          = $field['id'];
-		$field_attributes['name']        = ! empty( $field['name'] ) ? $field['name'] : $field['id'];
+		$field_attributes['name']        = $field['name'];
 		$field_attributes['placeholder'] = $field['placeholder'];
 		$field_attributes['rows']        = $field['rows'];
 		$field_attributes['style']       = $field['style'];
@@ -217,6 +215,7 @@ class Field {
 		}
 
 		$description = ! empty( $field['desc'] ) ? $field['desc'] : '';
+		$field_value = get_option( $field['name'] );
 
 		?>
 		<tr <?php $this->html_attrs( $wrapper_attributes ); ?>>
@@ -224,7 +223,7 @@ class Field {
 				<label <?php $this->html_attrs( $label_attributes ); ?>><?php echo wp_kses_post( $field['label'] ); ?></label>
 			</th>
 			<td>
-				<textarea <?php $this->html_attrs( $field_attributes ); ?>><?php echo esc_textarea( get_option( $field['name'] ) ); ?></textarea>
+				<textarea <?php $this->html_attrs( $field_attributes ); ?>><?php echo esc_textarea( $field_value ); ?></textarea>
 
 				<?php if ( ! empty( $description ) ) : ?>
 					<p class="description"><?php echo wp_kses_post( $description ); ?></p>
@@ -241,39 +240,42 @@ class Field {
 	 * @param array $field Field data.
 	 */
 	public function dropdown_field( array $field ) {
-		$field = wp_parse_args(
-			$field,
-			array(
-				'attributes'    => array(),
-				'class'         => 'select',
-				'desc'          => '',
-				'name'          => $field['id'],
-				'style'         => '',
-				'value'         => '',
-				'wrapper_class' => '',
-				'required'      => false,
-			)
+		$args = array(
+			'attributes'    => array(),
+			'class'         => 'select',
+			'desc'          => '',
+			'name'          => $field['id'],
+			'placeholder'   => '',
+			'required'      => false,
+			'style'         => '',
+			'value'         => '',
+			'wrapper_class' => '',
 		);
 
+		$field = wp_parse_args( $field, $args );
+
 		$wrapper_attributes = array(
-			'class' => $field['wrapper_class'] . " form-field {$field['id']}_field",
+			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'setting-row', $field['id'] . '-setting-row' ) ) ),
+			'id'    => $field['id'] . '-setting-row',
 		);
 
 		$label_attributes = array(
 			'for' => $field['id'],
 		);
 
-		$field_attributes          = (array) $field['attributes'];
-		$field_attributes['class'] = $field['class'];
-		$field_attributes['id']    = $field['id'];
-		$field_attributes['name']  = ! empty( $field['name'] ) ? $field['name'] : $field['id'];
-		$field_attributes['style'] = $field['style'];
+		$field_attributes                     = (array) $field['attributes'];
+		$field_attributes['class']            = $field['class'];
+		$field_attributes['id']               = $field['id'];
+		$field_attributes['data-placeholder'] = $field['placeholder'];
+		$field_attributes['name']             = $field['name'];
+		$field_attributes['style']            = $field['style'];
 
 		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
 			$field_attributes['required'] = 'required';
 		}
 
 		$description = ! empty( $field['desc'] ) ? $field['desc'] : '';
+		$field_value = get_option( $field['name'] );
 
 		?>
 		<tr <?php $this->html_attrs( $wrapper_attributes ); ?>>
@@ -285,7 +287,7 @@ class Field {
 					<?php
 					foreach ( $field['options'] as $key => $value ) {
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						echo '<option value="' . esc_attr( $key ) . '"' . $this->selected( $key, get_option( $field['name'] ) ) . '>' . esc_html( $value ) . '</option>';
+						echo '<option value="' . esc_attr( $key ) . '"' . $this->selected( $key, $field_value ) . '>' . esc_html( $value ) . '</option>';
 					}
 					?>
 				</select>
