@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Ajaxify 1.1.1\n"
+"Project-Id-Version: WP Ajaxify 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ajaxify\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-05T15:18:06+00:00\n"
+"POT-Creation-Date: 2022-10-07T12:51:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: wp-ajaxify\n"
@@ -457,18 +457,18 @@ msgstr ""
 msgid "Remove ALL WP Ajaxify data upon plugin deletion. All settings will be unrecoverable."
 msgstr ""
 
-#: includes/class-field.php:309
+#: includes/class-field.php:311
 msgid "Yes"
 msgstr ""
 
-#: includes/class-field.php:310
+#: includes/class-field.php:312
 msgid "No"
 msgstr ""
 
-#: includes/class-field.php:324
+#: includes/class-field.php:326
 msgid "True"
 msgstr ""
 
-#: includes/class-field.php:325
+#: includes/class-field.php:327
 msgid "False"
 msgstr ""

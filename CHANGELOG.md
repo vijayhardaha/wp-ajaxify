@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.2 - Oct 07, 2022
+
+-   Fix: Fix name attribute implemenation.
+-   Enhance: Add styles for `p.description` tag.
+
 ## 1.1.1 - Oct 05, 2022
 
 -   Fix: Fix version in plugin main file.
