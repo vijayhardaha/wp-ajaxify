@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.1.3 - Oct 12, 2022
+
+-   CI: Upgrade github actions for node16.
+-   Enhance: Add plugin prefix for heading row id.
+-   Enhance: Implement build id feature in fields setup.
+-   Fix: Disable ajaxify on customizer preview mode.
+-   Fix: Fix changelog link.
+-   Fix: Fix notice position by adding `<hr class="wp-header-end">` tag after heading description.
+
 ## 1.1.2 - Oct 07, 2022
 
 -   Fix: Fix name attribute implemenation.
