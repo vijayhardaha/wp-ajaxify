@@ -31,6 +31,7 @@ class Field {
 	 * Return the html selected attribute if stringified $value is found in array of stringified $options
 	 * or if stringified $value is the same as scalar stringified $options.
 	 *
+	 * @since 1.1.0
 	 * @param string|int       $value   Value to find within options.
 	 * @param string|int|array $options Options to go through when looking for value.
 	 * @return string
@@ -57,6 +58,19 @@ class Field {
 		}
 
 		echo implode( ' ', $field_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Build id attribute as a sanitized slug.
+	 *
+	 * @since 1.1.3
+	 * @param string $string Field name or label.
+	 * @return string
+	 */
+	private function build_id( $string = '' ) {
+		// Replace underscore with space first.
+		$string = preg_replace( '/_/', ' ', $string );
+		return sanitize_title( $string );
 	}
 
 	/**
@@ -92,7 +106,7 @@ class Field {
 			)
 		);
 
-		$field_id = sanitize_title( $field['label'] );
+		$field_id = $this->build_id( $field['label'] );
 
 		$wrapper_attributes = array(
 			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'heading-row', $field_id . '-heading' ) ) ),
@@ -118,7 +132,7 @@ class Field {
 			'attributes'    => array(),
 			'class'         => 'regular-text',
 			'desc'          => '',
-			'name'          => $field['id'],
+			'id'            => $this->build_id( $field['name'] ),
 			'placeholder'   => '',
 			'required'      => false,
 			'style'         => '',
@@ -181,10 +195,10 @@ class Field {
 			'class'         => 'regular-text',
 			'cols'          => 20,
 			'desc'          => '',
-			'name'          => $field['id'],
+			'id'            => $this->build_id( $field['name'] ),
 			'placeholder'   => '',
 			'required'      => false,
-			'rows'          => 3,
+			'rows'          => 5,
 			'style'         => '',
 			'value'         => '',
 			'wrapper_class' => '',
@@ -244,8 +258,8 @@ class Field {
 			'attributes'    => array(),
 			'class'         => 'select',
 			'desc'          => '',
-			'name'          => $field['id'],
-			'placeholder'   => '',
+			'id'            => $this->build_id( $field['name'] ),
+			'options'       => array(),
 			'required'      => false,
 			'style'         => '',
 			'value'         => '',
@@ -263,12 +277,11 @@ class Field {
 			'for' => $field['id'],
 		);
 
-		$field_attributes                     = (array) $field['attributes'];
-		$field_attributes['class']            = $field['class'];
-		$field_attributes['id']               = $field['id'];
-		$field_attributes['data-placeholder'] = $field['placeholder'];
-		$field_attributes['name']             = $field['name'];
-		$field_attributes['style']            = $field['style'];
+		$field_attributes          = (array) $field['attributes'];
+		$field_attributes['class'] = $field['class'];
+		$field_attributes['id']    = $field['id'];
+		$field_attributes['name']  = $field['name'];
+		$field_attributes['style'] = $field['style'];
 
 		if ( isset( $field['required'] ) && $this->str_to_bool( $field['required'] ) ) {
 			$field_attributes['required'] = 'required';
