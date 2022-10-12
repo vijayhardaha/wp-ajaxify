@@ -31,6 +31,13 @@ class Frontend {
 	 * @since 1.0.0
 	 */
 	public function enqueue_assets() {
+		/**
+		 * Disable ajaxify on customizer preview.
+		 */
+		if ( is_customize_preview() ) {
+			return;
+		}
+
 		// Enqueue nothing is Ajaxify is not enable or selectors are empty.
 		if ( ! $this->is_enabled() || ! $this->has_valid_selectors() ) {
 			return;
