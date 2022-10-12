@@ -161,7 +161,7 @@ class Dashboard {
 						</a>
 					</span>
 					<span>
-						<a href="<?php echo esc_url( 'https://github.com/vijayhardaha/wp-ajaxify/blob/master/changelog.txt' ); ?>" aria-label="<?php esc_attr_e( 'Changelog', 'wp-ajaxify' ); ?>" target="_blank">
+						<a href="<?php echo esc_url( 'https://github.com/vijayhardaha/wp-ajaxify/blob/master/CHANGELOG.md' ); ?>" aria-label="<?php esc_attr_e( 'Changelog', 'wp-ajaxify' ); ?>" target="_blank">
 							<?php esc_html_e( 'Changelog', 'wp-ajaxify' ); ?>
 						</a>
 					</span>
