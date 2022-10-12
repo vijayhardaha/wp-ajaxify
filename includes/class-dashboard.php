@@ -173,6 +173,9 @@ class Dashboard {
 				</p>
 			</div>
 
+			<!-- .wp-header-end class helps fixing the notice position. -->
+			<hr class="wp-header-end">
+
 			<div class="wp-ajaxify-settings-page__nav">
 				<h2 class="nav-tab-wrapper">
 					<?php
