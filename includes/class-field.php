@@ -106,7 +106,7 @@ class Field {
 			)
 		);
 
-		$field_id = $this->build_id( $field['label'] );
+		$field_id = $this->build_id( 'wp-ajaxify-' . $field['label'] );
 
 		$wrapper_attributes = array(
 			'class' => join( ' ', array_filter( array( $field['wrapper_class'], 'heading-row', $field_id . '-heading' ) ) ),
