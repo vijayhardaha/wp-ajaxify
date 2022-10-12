@@ -1,4 +1,4 @@
-name: Build release asset
+name: Build Release
 
 on:
   push:
@@ -7,36 +7,24 @@ on:
 
 jobs:
   build:
-    name: Build release asset
+    name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Get tag
+      - name: Get Tag
         id: tag
         run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
 
-      - name: Build project
-        run: git archive -o /tmp/wp-ajaxify-${{ steps.tag.outputs.tag }}.zip --prefix=wp-ajaxify/ ${{ steps.tag.outputs.tag }}
+      - name: Build Project
+        run: git archive -o /tmp/wp-ajaxify.zip --prefix=wp-ajaxify/ ${{ steps.tag.outputs.tag }}
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.tag.outputs.tag }}
-          release_name: ${{ steps.tag.outputs.tag }}
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /tmp/wp-ajaxify-${{ steps.tag.outputs.tag }}.zip
-          asset_name: wp-ajaxify.zip
-          asset_content_type: application/zip
+			- name: Create Release & Upload Assets
+				id: create_release
+  			uses: ncipollo/release-action@v1.11.1
+				with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+					name: ${{ steps.tag.outputs.tag }}
+          tag: ${{ steps.tag.outputs.tag }}
+          artifacts: /tmp/wp-ajaxify.zip
