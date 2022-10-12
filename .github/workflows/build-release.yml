@@ -20,11 +20,11 @@ jobs:
       - name: Build Project
         run: git archive -o /tmp/wp-ajaxify.zip --prefix=wp-ajaxify/ ${{ steps.tag.outputs.tag }}
 
-			- name: Create Release & Upload Assets
-				id: create_release
-  			uses: ncipollo/release-action@v1.11.1
-				with:
+      - name: Create Release & Upload Assets
+        id: create_release
+        uses: ncipollo/release-action@v1.11.1
+        with:
           token: ${{ secrets.GITHUB_TOKEN }}
-					name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
           tag: ${{ steps.tag.outputs.tag }}
           artifacts: /tmp/wp-ajaxify.zip
