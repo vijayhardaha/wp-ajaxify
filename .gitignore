@@ -1,80 +1,58 @@
-# Operating System
+# Operating System files
 .DS_Store
 Thumbs.db
 
-# IDE
-.idea
-.project
-.settings*
-.sublimelinterrc
-*.sublime-project
-*.sublime-workspace
-project.properties
-project.xml
+# Grunt
+none
+
+# Sass
+.sass-cache/
+
+# NPM
+.npm
 
 # Logs
 *.log
 logs/
-npm-debug.log*
 
-# Environment
+# Eslint Cache
+.eslintcache
+
+# REPL
+.node_repl_history
+
+# node-waf
+.lock-wscript
+
+# Environment files
 .pnpm-debug.log
 npm-debug.log
 wp-cli.local.yml
 yarn-error.log
 
-# Runtime Data
-.cache
-*.pid
-*.pid.lock
-*.seed
-pids
-
-# Build
-*-performance-results.json
+# Build files
 *.sql
 *.swp
 *.zip
-build-module/
-build-style/
-build-types/
+
+# Built packages
 build/
 coverage/
 dist/
 
-# Project
-jspm_packages/
+# Project files
 node_modules/
 vendor/
 
 # Composer
-/tests/phpunit/build
 bin/composer/**/vendor/
 contributors.html
 contributors.md
 lib/vendor/
 vendor/
 
-# Grunt
-.grunt
-
-# Sass
-.sass-cache/
-
-# Eslint Cache
-.eslintcache
-
-# NPM
-.npm
-
-# REPL
-.node_repl_history
-
-# TypeScript
-tsconfig.tsbuildinfo
-
-# node-waf
-.lock-wscript
+# PHP lint
+phpcs-report.xml
 
 # Unit tests
 tmp/
@@ -87,6 +65,3 @@ test-results.json
 *.orig
 *.patch
 *.rej
-
-# PHP lint
-phpcs-report.xml

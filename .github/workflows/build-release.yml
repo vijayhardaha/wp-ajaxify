@@ -15,16 +15,16 @@ jobs:
 
       - name: Get Tag
         id: tag
-        run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
-      - name: Build Project
-        run: git archive -o /tmp/wp-ajaxify.zip --prefix=wp-ajaxify/ ${{ steps.tag.outputs.tag }}
+      - name: Build Zip
+        run: bash bin/build-zip.sh
 
       - name: Create Release & Upload Assets
         id: create_release
-        uses: ncipollo/release-action@v1.11.1
+        uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: ${{ steps.tag.outputs.tag }}
           tag: ${{ steps.tag.outputs.tag }}
-          artifacts: /tmp/wp-ajaxify.zip
+          artifacts: wp-ajaxify.zip

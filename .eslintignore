@@ -1,15 +1,9 @@
-# Files & Directories related to build & test tools.
-.idea/
+# Files & Directories related to build & test tools./
 .vscode/
-/build
-/dist
 /node_modules
-/tests
 /vendor
 
 # Project Files & Directories.
 assets/
-includes/
-languages/
-src/js/vendors/
+src/js/plugins/
 src/js/**/*.min.js

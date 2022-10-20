@@ -7,18 +7,20 @@ on:
     branches:
       - master
     paths:
-      - '**.php'
-      - '**.js'
-      - '**.css'
-      - '**.scss'
-      - 'package.json'
+      - "**.php"
+      - "**.js"
+      - "**.css"
+      - "**.scss"
+      - "**.yml"
+      - "package.json"
   pull_request:
     paths:
-      - '**.php'
-      - '**.js'
-      - '**.css'
-      - '**.scss'
-      - 'package.json'
+      - "**.php"
+      - "**.js"
+      - "**.css"
+      - "**.scss"
+      - "**.yml"
+      - "package.json"
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -30,29 +32,46 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-css:
+  lint-assets:
     name: "Lint: CSS & JS"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3.4.1
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          cache: npm
 
-      - name: Install Node dependencies
-        run: npm ci
-        env:
-          CI: true
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm Store Directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm Cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Dependencies
+        run: pnpm install
 
       - name: Detect coding standard violations (stylelint)
-        run: npm run lint:css
+        run: pnpm run lint:css
 
       - name: Detect coding standard violations (eslint)
-        run: npm run lint:js
+        run: pnpm run lint:js
 
   lint-php:
     name: "Lint: PHP"
@@ -70,10 +89,10 @@ jobs:
 
       - name: Get Composer Cache Directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Configure Composer cache
-        uses: actions/cache@v3.0.6
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
