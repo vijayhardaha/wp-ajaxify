@@ -3,7 +3,7 @@
  * Plugin Name: WP Ajaxify
  * Plugin URI: https://github.com/vijayhardaha/wp-ajaxify/
  * Description: This is a simple plugin to easily implement Ajaxify.js by the <a href="https://4nf.org/">Ajaxify @4nf.org</a> in the WordPress.
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Vijay Hardaha
  * Author URI: https://github.com/vijayhardaha/
  * License: GPLv2 or later
