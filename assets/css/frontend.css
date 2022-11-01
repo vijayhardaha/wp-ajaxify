@@ -2,7 +2,7 @@
   --wp-ajaxfy-primary-color: #2872fa;
   --wp-ajaxfy-overlay-color: #000;
   --wp-ajaxfy-overlay-opacity: 0.45;
-  --wp-ajaxfy-progress-bar-height: 6px;
+  --wp-ajaxfy-progress-bar-height: 3px;
   --wp-ajaxfy-loader-rgb: rgba(40, 114, 250, 0.2)
 }
 .wp-ajaxify-loader {
@@ -39,7 +39,7 @@
   background: var(--wp-ajaxfy-overlay-color,#000)
 }
 .wp-ajaxify-loader .wp-ajaxify-loader__progress-bar {
-  height: var(--wp-ajaxfy-progress-bar-height,6px);
+  height: var(--wp-ajaxfy-progress-bar-height,3px);
   animation: wp-ajaxify-progress-bar 5s 1;
   background: var(--wp-ajaxfy-primary-color,#2872fa)
 }
