@@ -30,6 +30,7 @@ $loader-rgb: var(--#{$prefix}loader-rgb, $_loader-rgb);
 	left: 0;
 	width: 100%;
 	height: 100%;
+	cursor: pointer;
 
 	& &__overlay,
 	& &__content,
