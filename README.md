@@ -1,49 +1,52 @@
 # WP Ajaxify
 
-WP Ajaxify is a simple WordPress plugin to easily implement **Ajaxify.js** by the [Ajaxify @4nf.org](https://4nf.org/) in the WordPress.
+WP Ajaxify is a user-friendly WordPress plugin designed to seamlessly integrate **Ajaxify.js** by [Ajaxify @4nf.org](https://4nf.org/) into your WordPress website.
 
 ## About
 
-This plugin provides a clean and simple backend settings dashboard to control all the `Ajaxify.js` configurations.
+This plugin simplifies the process of configuring and utilizing **Ajaxify.js** within WordPress. It offers an intuitive and clean backend settings dashboard where you can manage all your **Ajaxify.js** configurations effortlessly.
 
-In addition, the plugin also provides pre-loader implementation through settings and also, allows users to implement another version of `Ajaxify.js` using [Ajaxify.js CDN](https://cdnjs.com/libraries/ajaxify) url or any other url sources.
+Additionally, WP Ajaxify features a built-in pre-loader that you can easily enable through settings. It also provides the flexibility to implement various versions of **Ajaxify.js**, including the option to use the [Ajaxify.js CDN](https://cdnjs.com/libraries/ajaxify) or any other URL source.
 
-Check our [Documentation](docs/documentation.md) page to know details on Plugin Install, Plugin Development, Plugin Settings, Plugin FAQ, Plugin Setup with WooCommerce, Common Conflicts/Issues and Fixes.
+For detailed instructions and insights, please refer to our comprehensive [Documentation](docs/documentation.md) page. Here, you'll find information on Plugin Installation, Plugin Development, Plugin Settings, FAQs, WooCommerce Integration, Common Conflicts, and Solutions.
 
-## Features
+## Key Features
 
-- Provides clean and simple settings dashboard to control configurations.
-- Provides pre-loader to show before each page render.
-- Allows using custom preloader through custom Loader HTML.
-- Ability to implement different versions of Ajaxify.js
+- Streamlined settings dashboard for easy configuration management.
+- Built-in pre-loader to display before each page render.
+- Custom pre-loader option through HTML customization.
+- Support for different versions of Ajaxify.js.
 
-## Install
+## Installation
 
-See the [Plugin Install](docs/install.md) documentation for the detailed information about plugin installation.
+To get started, consult our [Plugin Installation](docs/install.md) documentation for a step-by-step guide on installing and activating the plugin.
 
 ## Settings
 
-See the [Plugin Settings](docs/settings.md) documentation for the detailed information on plugin settings and their usage.
+For in-depth information on plugin settings and their usage, visit the [Plugin Settings](docs/settings.md) documentation.
 
 ## Development
 
-See the [Plugin Development](docs/development.md) guide for getting started with Development.
+If you're interested in contributing or diving into plugin development, check out the [Plugin Development](docs/development.md) guide to get started.
 
 ## License
 
-Copyright (C) 2022, Vijay Hardaha.\
-WP Ajaxify is distributed under the terms of the [GNU GENERAL PUBLIC LICENSE](LICENSE).
+WP Ajaxify is released under the [GNU GENERAL PUBLIC LICENSE](LICENSE). You are free to use, modify, and distribute this plugin within the terms of the license.
 
 ## Contributions
 
-Anyone is welcome to contribute.
+We welcome contributions from the community. Feel free to get involved and contribute to the improvement of WP Ajaxify.
 
 ## Special Thanks
 
-We are grateful to thanks [Ajaxify @4nf.org](https://4nf.org/) author, team and, other contributors for developing and continuously maintaining **Ajaxify.js**
+We extend our appreciation to the author, team, and contributors of [Ajaxify @4nf.org](https://4nf.org/) for creating and maintaining **Ajaxify.js**.
 
-[Ajaxify.js Github](https://github.com/arvgta/ajaxify) | [Ajaxify.js CDN](https://cdnjs.com/libraries/ajaxify) | [Ajaxify.js NPM](https://www.npmjs.com/package/ajaxify)
+Explore Ajaxify.js further:
+
+- [Ajaxify.js GitHub](https://github.com/arvgta/ajaxify)
+- [Ajaxify.js CDN](https://cdnjs.com/libraries/ajaxify)
+- [Ajaxify.js NPM](https://www.npmjs.com/package/ajaxify)
 
 ---
 
-Made with ❤ by [Vijay Hardaha](https://twitter.com/vijayhardaha)
+Crafted with ❤ by [Vijay Hardaha](https://twitter.com/vijayhardaha)
