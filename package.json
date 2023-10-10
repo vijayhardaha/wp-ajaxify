@@ -26,12 +26,15 @@
 		"lint-fix": "run-s lint-fix:*",
 		"prezip": "rm -rf wp-ajaxify.zip",
 		"zip": "zip -r wp-ajaxify.zip ./*.php assets includes languages -x '**/.DS_Store'",
-		"makepot": "wp i18n make-pot . --exclude=\"node_modules,vendor\" --slug=wp-ajaxify"
+		"makepot": "wp i18n make-pot . --exclude=\"node_modules,vendor\" --slug=wp-ajaxify",
+		"prepare": "husky install"
 	},
 	"browserslist": [
 		"extends @wordpress/browserslist-config"
 	],
 	"devDependencies": {
+		"@commitlint/cli": "^17.7.2",
+		"@commitlint/config-conventional": "^17.7.0",
 		"@wordpress/browserslist-config": "^5.26.0",
 		"@wordpress/eslint-plugin": "^17.0.0",
 		"@wordpress/stylelint-config": "^21.26.0",
@@ -50,6 +53,7 @@
 		"gulp-sass": "^5.1.0",
 		"gulp-strip-css-comments": "^2.0.0",
 		"gulp-terser": "^2.1.0",
+		"husky": "^8.0.0",
 		"merge-stream": "^2.0.0",
 		"npm-run-all": "^4.1.5",
 		"postcss-discard-duplicates": "^6.0.0",
