@@ -24,7 +24,6 @@
 				loader_html += '<div class="wp-ajaxify-loader__progress-bar"></div>';
 				break;
 		}
-		// This is test
 		return '<div class="wp-ajaxify-loader" data-type="' + type + '">' + loader_html + '</div>';
 	}
 
