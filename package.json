@@ -29,6 +29,17 @@
 		"makepot": "wp i18n make-pot . --exclude=\"node_modules,vendor\" --slug=wp-ajaxify",
 		"prepare": "husky install"
 	},
+	"lint-staged": {
+		"src/**/*.{js,jsx}": [
+			"run-s lint:js build:js"
+		],
+		"src/**/*.{css,scss}": [
+			"run-s lint:css build:css"
+		],
+		"**/*.php": [
+			"run-s lint:php"
+		]
+	},
 	"browserslist": [
 		"extends @wordpress/browserslist-config"
 	],
@@ -54,6 +65,7 @@
 		"gulp-strip-css-comments": "^2.0.0",
 		"gulp-terser": "^2.1.0",
 		"husky": "^8.0.0",
+		"lint-staged": "^14.0.1",
 		"merge-stream": "^2.0.0",
 		"npm-run-all": "^4.1.5",
 		"postcss-discard-duplicates": "^6.0.0",
