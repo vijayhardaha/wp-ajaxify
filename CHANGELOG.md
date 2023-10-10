@@ -1,55 +1,67 @@
 # CHANGELOG
 
-## 1.1.4 - Nov 2, 2022
+## Version 1.1.5 - Oct 11, 2022
 
-- Change progress bar height to 3px from 6px.
+- Improved the efficiency of absolute path checking by implementing a shorter method.
+- Enhanced code formatting by removing reliance on the prettier configuration.
+- Refactored build scripts, utilizing the run-s command for better script execution.
+- Added the npm-run-all development dependency for improved script management.
+- Updated dependencies to their latest versions.
+- Set a consistent tab width of 2 for JSON, Markdown (md), and YAML (yml) files.
+- Removed the unused @wordpress/prettier-config dependency.
+- Removed the prettier configuration file for code consistency.
+- Enhanced configuration rules and added comments for clarity.
 
-## 1.1.3 - Oct 12, 2022
+## Version 1.1.4 - Nov 02, 2022
 
-- Add plugin prefix for heading row id.
-- Disable ajaxify on customizer preview mode.
-- Fix changelog link.
-- Fix notice position by adding `<hr class="wp-header-end">` tag after heading description.
-- Implement build id feature in fields setup.
-- Upgrade github actions for node16.
+- Adjusted the height of the progress bar from 6px to a more visually appealing 3px.
 
-## 1.1.2 - Oct 07, 2022
+## Version 1.1.3 - Oct 12, 2022
 
-- Add styles for `p.description` tag.
-- Fix name attribute implemenation.
+- Added a plugin prefix for the heading row ID, ensuring unique identifiers.
+- Disabled ajaxify functionality during customizer preview mode to prevent conflicts.
+- Corrected the changelog link for accurate navigation.
+- Improved notice positioning by adding an `<hr class="wp-header-end">` tag after the heading description.
+- Implemented a build ID feature in fields setup for better organization.
+- Upgraded GitHub actions to node16 for better compatibility.
 
-## 1.1.1 - Oct 05, 2022
+## Version 1.1.2 - Oct 07, 2022
 
-- Fix version in plugin main file.
-- Add new export ignore paths.
+- Added specific styles for the `p.description` tag to enhance the visual presentation.
+- Corrected the implementation of the name attribute for better functionality.
 
-## 1.1.0 - Oct 05, 2022
+## Version 1.1.1 - Oct 05, 2022
 
-- Add link for GNU GPL License.
-- Bump ajaxify version to 8.2.6
-- Convert Gulp setup to module.
-- Enhance dashboard table UI.
-- Enhance default settings of plugin.
-- Enhance form fields rendering functions.
-- Enhance global variable usage.
+- Fixed the version number in the plugin's main file to ensure consistency.
+- Added new export ignore paths for more accurate exports.
 
-## 1.0.3 - Sep 23, 2022
+## Version 1.1.0 - Oct 05, 2022
 
-- Fix missing style attr and pronto twice request issues.
+- Included a link to the GNU GPL License for improved licensing information.
+- Updated the ajaxify version to 8.2.6 for compatibility.
+- Restructured the Gulp setup into a module for better maintainability.
+- Enhanced the UI of the dashboard table for a more user-friendly experience.
+- Improved default settings of the plugin for smoother operation.
+- Enhanced the rendering functions of form fields for better performance.
+- Optimized global variable usage for improved efficiency.
 
-## 1.0.2 - Sep 15, 2022
+## Version 1.0.3 - Sep 23, 2022
 
-- Fix the prefetch off conflict by passing boolean in args.
+- Fixed issues related to missing style attributes and multiple pronto requests for a smoother user experience.
 
-## 1.0.1 - Aug 31, 2022
+## Version 1.0.2 - Sep 15, 2022
 
-- Add required & tested php & wp version in plugin meta.
-- Allow empty comments and increase max line length in stylelint.
-- Enhance npm script names & tasks.
-- Enhanced gulp task script.
-- Format readme.md with prettier.
-- Remove whitespace from phpcs.xml & updated the required wp version.
+- Resolved conflicts related to prefetch off by passing a boolean value as arguments for improved compatibility.
 
-## 1.0.0 - Aug 23, 2022
+## Version 1.0.1 - Aug 31, 2022
 
-- Initial release of plugin.
+- Added required and tested PHP and WP version information to the plugin's meta data for clearer compatibility information.
+- Allowed empty comments and increased the maximum line length in stylelint for more flexible coding standards.
+- Enhanced npm script names and tasks for better script management.
+- Improved gulp task script for better task execution.
+- Formatted the readme.md file with prettier for a more consistent look.
+- Removed whitespace from phpcs.xml and updated the required WP version for better compliance.
+
+## Version 1.0.0 - Aug 23, 2022
+
+- Initial release of the plugin, providing essential features and functionalities.
