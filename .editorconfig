@@ -31,8 +31,8 @@ trim_trailing_whitespace = false
 trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
+tab_width = 2
 
 [*.json]
 # Use tabs for indentation specifically for .json files.
 indent_style = tab
-indent_size = 2
