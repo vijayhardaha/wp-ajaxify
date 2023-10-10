@@ -3,28 +3,34 @@ name: Build Release
 on:
   push:
     tags:
-      - "v*"
+      - "v*" # Trigger the workflow on tag pushes starting with "v".
 
 jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3 # Checkout the repository code.
 
       - name: Get Tag
         id: tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        # Extract and store the tag from the GITHUB_REF environment variable.
 
       - name: Build Zip
         run: bash bin/build-zip.sh
+        # Execute a script to build a zip file.
 
       - name: Create Release & Upload Assets
         id: create_release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1 # Use the ncipollo release action.
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: ${{ steps.tag.outputs.tag }}
-          tag: ${{ steps.tag.outputs.tag }}
-          artifacts: wp-ajaxify.zip
+          token: ${{ env.GITHUB_TOKEN }} # Use the GitHub token for authentication.
+          name: ${{ steps.tag.outputs.tag }} # Set the release name.
+          tag: ${{ steps.tag.outputs.tag }}   # Set the release tag.
+          artifacts: wp-ajaxify.zip # Upload the yyd.zip file as an asset.
