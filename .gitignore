@@ -1,66 +1,66 @@
-# Operating System files
+# Operating System files.
 .DS_Store
 Thumbs.db
 
-# Grunt
+# Grunt.
 none
 
-# Sass
+# Sass.
 .sass-cache/
 
-# NPM
+# NPM.
 .npm
 
-# Logs
+# Logs.
 *.log
 logs/
 
-# Eslint Cache
+# Eslint Cache.
 .eslintcache
 
-# REPL
+# REPL.
 .node_repl_history
 
-# node-waf
+# node-waf.
 .lock-wscript
 
-# Environment files
+# Environment files.
 .pnpm-debug.log
 npm-debug.log
 wp-cli.local.yml
 yarn-error.log
 
-# Build files
+# Build files.
 *.sql
 *.swp
 *.zip
 
-# Built packages
+# Built packages.
 build/
 coverage/
 dist/
 
-# Project files
+# Project files.
 node_modules/
 vendor/
 
-# Composer
+# Composer.
 bin/composer/**/vendor/
 contributors.html
 contributors.md
 lib/vendor/
 vendor/
 
-# PHP lint
+# PHP lint.
 phpcs-report.xml
 
-# Unit tests
+# Unit tests.
 tmp/
 
-# Test Results
+# Test Results.
 test-results.json
 
-# Patches
+# Patches.
 *.diff
 *.orig
 *.patch

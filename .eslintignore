@@ -1,9 +1,15 @@
-# Files & Directories related to build & test tools./
+# Files & Directories related to build & test tools.
+# Exclude the .vscode directory from version control.
 .vscode/
+# Exclude the node_modules directory from version control.
 /node_modules
+# Exclude the vendor directory from version control.
 /vendor
 
 # Project Files & Directories.
+# Exclude the assets directory from version control.
 assets/
+# Exclude the src/js/plugins directory from version control.
 src/js/plugins/
+# Exclude minified JavaScript files within the src/js/ directory from version control.
 src/js/**/*.min.js

@@ -1,10 +1,13 @@
 # Set the default behavior, in case people don't have `core.autocrlf` set.
+# Automatically handle line endings for text files.
 * text=auto
 
 # Declare files that will always have LF line endings on checkout.
+# Ensure that PHP files always have LF line endings.
 *.php text eol=lf
 
 # Remove files for archives generated using `git archive`.
+# Exclude specific files and directories from Git archives.
 /.*					export-ignore
 /*.md				export-ignore
 bin					export-ignore
@@ -19,5 +22,6 @@ phpunit.*			export-ignore
 pnpm-lock.yaml		export-ignore
 README.md			export-ignore
 readme.txt			export-ignore
+setup.mjs			export-ignore
 src					export-ignore
 tests				export-ignore

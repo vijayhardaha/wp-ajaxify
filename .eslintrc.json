@@ -1,21 +1,42 @@
+// This is an enhanced version of the original code block, with better formatting, comments, and code enhancement suggestions.
 {
+	// Extends the WordPress ESLint plugin for ESNext code.
 	"extends": ["plugin:@wordpress/eslint-plugin/esnext"],
+
+	// Specifies the environments in which the code will be executed.
 	"env": {
 		"browser": true,
 		"es6": true,
 		"node": true
 	},
+
+	// Specifies the global variables that are available in the code.
 	"globals": {
 		"jQuery": true,
 		"es6": true
 	},
+
+	// Specifies the ESLint rules that should be applied to the code.
 	"rules": {
+		// Disables the camelcase rule.
 		"camelcase": 0,
+
+		// Disables the no-console rule.
 		"no-console": 0,
+
+		// Disables the no-alert rule.
 		"no-alert": 0,
+
+		// Enables the no-unused-expressions rule.
 		"no-unused-expressions": 1,
+
+		// Enables the no-irregular-whitespace rule.
 		"no-irregular-whitespace": 1,
+
+		// Enables the no-undef rule.
 		"no-undef": 1,
+
+		// Enables the no-unused-vars rule.
 		"no-unused-vars": 1
 	}
 }

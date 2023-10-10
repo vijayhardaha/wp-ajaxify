@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
+<!-- Define a ruleset for WordPress Coding Standards. -->
 <ruleset name="WordPress Coding Standards">
-	<file>.</file>
+	<file>./</file>
 
-	<!-- Exclude dependency related files and generated files from being scanned. -->
-	<exclude-pattern>*/tests/*</exclude-pattern>
-	<exclude-pattern>*/vendor/*</exclude-pattern>
-	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<!-- Exclude dependency-related files, generated files, and certain directories from scanning. -->
+	<exclude-pattern>*/tests/*</exclude-pattern> <!-- Exclude test directories. -->
+	<exclude-pattern>*/vendor/*</exclude-pattern> <!-- Exclude vendor directories. -->
+	<exclude-pattern>*/node_modules/*</exclude-pattern> <!-- Exclude node_modules directories. -->
 
-	<!-- Only check PHP files. -->
+	<!-- Specify that only PHP files should be checked. -->
 	<arg name="extensions" value="php"/>
 
-    <!-- Show colors in console -->
+    <!-- Show colors in the console. -->
     <arg value="-colors"/>
 
-	<!-- Show progress, show the error codes for each message (source). -->
+	<!-- Show progress and display error codes for each message (source). -->
 	<arg value="ps"/>
 
 	<!-- Strip the filepaths in reports down to the relevant bit. -->
@@ -22,50 +23,60 @@
 	<!-- Check up to 8 files simultaneously. -->
 	<arg name="parallel" value="8"/>
 
-	<!-- Configs -->
-	<config name="minimum_supported_wp_version" value="5.8"/>
-	<config name="testVersion" value="7.0-"/>
+	<!-- Define configuration settings. -->
+	<config name="minimum_supported_wp_version" value="5.8"/> <!-- Minimum supported WordPress version. -->
+	<config name="testVersion" value="7.0-"/> <!-- Test version. -->
 
+	<!-- Rule for PHPCompatibilityWP with exclusions. -->
 	<rule ref="PHPCompatibilityWP">
-		<exclude-pattern>tests/</exclude-pattern>
+		<exclude-pattern>tests/</exclude-pattern> <!-- Exclude test directories. -->
 	</rule>
 
+	<!-- Rule for WordPress with specific exclusions. -->
 	<rule ref="WordPress">
+		<!-- Exclude WordPress.Files.FileName as the plugin adheres to the PSR-4 standard. -->
+        <exclude name="WordPress.Files.FileName"/>
 	</rule>
 
+	<!-- Rule for WordPress Internationalization (I18n) with specific text domains. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array" value="wp-ajaxify"/>
 		</properties>
 	</rule>
 
+	<!-- Rule for invalid class file names with exclusions. -->
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
-		<exclude-pattern>includes/**/abstract-*.php</exclude-pattern>
-		<exclude-pattern>tests/</exclude-pattern>
+		<exclude-pattern>includes/**/abstract-*.php</exclude-pattern> <!-- Exclude specific abstract class file names. -->
+		<exclude-pattern>tests/</exclude-pattern> <!-- Exclude test directories. -->
 	</rule>
 
-  	<!-- Include the WordPress-Extra standard. -->
+  	<!-- Include the WordPress-Extra standard with exclusions. -->
     <rule ref="WordPress-Extra">
-        <!-- Exclude any rules here -->
+        <!-- Exclude specific rules here. For example, WordPress.PHP.DisallowShortTernary. -->
         <exclude name="WordPress.PHP.DisallowShortTernary"/>
     </rule>
 
-    <!-- Let's also check that everything is properly documented. -->
+    <!-- Rule to check that everything is properly documented. -->
     <rule ref="WordPress-Docs"/>
 
+    <!-- Rule for generic commenting with exclusions. -->
     <rule ref="Generic.Commenting">
-		<exclude-pattern>tests/</exclude-pattern>
+		<exclude-pattern>tests/</exclude-pattern> <!-- Exclude test directories. -->
 	</rule>
 
+	<!-- Rule for validated and sanitized input with custom sanitizing functions. -->
 	<rule ref="WordPress.Security.ValidatedSanitizedInput">
 		<properties>
 			<property name="customSanitizingFunctions" type="array" value=""/>
 		</properties>
 	</rule>
 
+	<!-- Rule for escaping output with custom escaping functions. -->
 	<rule ref="WordPress.Security.EscapeOutput">
 		<properties>
 			<property name="customEscapingFunctions" type="array" value=""/>
 		</properties>
 	</rule>
 </ruleset>
+<!-- End of WordPress Coding Standards ruleset. -->

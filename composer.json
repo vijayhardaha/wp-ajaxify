@@ -4,9 +4,9 @@
 		"php": ">=7.0"
 	},
 	"require-dev": {
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
-		"squizlabs/php_codesniffer": "^3.6",
+		"squizlabs/php_codesniffer": "^3.7",
 		"wp-coding-standards/wpcs": "^2.3"
 	},
 	"config": {
@@ -15,7 +15,7 @@
 		}
 	},
 	"scripts": {
-		"lint-fix": "phpcbf --standard=phpcs.xml --runtime-set ignore_errors_on_exit true --runtime-set ignore_warnings_on_exit true",
-		"lint": "phpcs --standard=phpcs.xml --runtime-set ignore_errors_on_exit true --runtime-set ignore_warnings_on_exit true"
+		"lint-fix": "vendor/bin/phpcbf -p",
+		"lint": "vendor/bin/phpcs -s -p"
 	}
 }
