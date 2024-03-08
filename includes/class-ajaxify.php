@@ -200,9 +200,9 @@ final class Ajaxify {
 
 			$settings_url = $this->dashboard->get_tab_url( 'general' );
 
-			return array_merge(
+			array_unshift(
 				$actions,
-				array( 'settings' => sprintf( '<a href="%s">%s</a>', $settings_url, __( 'Settings', 'wp-ajaxify' ) ) )
+				sprintf( '<a href="%s">%s</a>', $settings_url, __( 'Settings', 'wp-ajaxify' ) )
 			);
 		}
 
