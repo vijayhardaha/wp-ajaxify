@@ -154,29 +154,3 @@
     transform: rotate(360deg)
   }
 }
-@media screen and (max-width:640px) {
-  .head {
-    color: #cfcfcf
-  }
-  .main {
-    color: #cfcfcf
-  }
-  .footer {
-    color: #cfcfcf
-  }
-}
-@media screen and (max-width:768px) {
-  .footer {
-    color: #cfcfcf
-  }
-}
-@media screen and (min-width:1280px) {
-  .mobile-first {
-    color: #cfcfcf
-  }
-}
-@media screen and (width > 640px) {
-  .mobile-first {
-    color: #cfcfcf
-  }
-}
