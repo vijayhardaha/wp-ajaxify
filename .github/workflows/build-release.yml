@@ -33,4 +33,4 @@ jobs:
           token: ${{ env.GITHUB_TOKEN }} # Use the GitHub token for authentication.
           name: ${{ steps.tag.outputs.tag }} # Set the release name.
           tag: ${{ steps.tag.outputs.tag }}   # Set the release tag.
-          artifacts: wp-ajaxify.zip # Upload the yyd.zip file as an asset.
+          artifacts: wp-ajaxify.zip # Upload the wp-ajaxify.zip file as an asset.
