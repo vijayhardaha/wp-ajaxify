@@ -6,7 +6,7 @@
  * Version: 1.1.5
  * Author: Vijay Hardaha
  * Author URI: https://github.com/vijayhardaha/
- * License: GPLv2 or later
+ * License: GPL-2.0-or-later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-ajaxify
  * Domain Path: /languages
