@@ -6,6 +6,7 @@
 /bin/
 /build/
 /changelog/
+/docs/
 /e2e/
 /node_modules/
 /src/
