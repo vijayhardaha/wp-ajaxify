@@ -1,8 +1,8 @@
 $white: #fff;
 $primary: #2872fa;
-$black:#000;
+$black: #000;
 
-$prefix : "wp-ajaxfy-";
+$prefix: "wp-ajaxfy-";
 $_opacity: 0.45;
 $_bar-height: 3px;
 $_loader-rgb: rgba($primary, 0.2);
@@ -78,7 +78,7 @@ $loader-rgb: var(--#{$prefix}loader-rgb, $_loader-rgb);
 
 		.wp-ajaxify-loader__content {
 
-			>div {
+			> div {
 				position: relative;
 				width: 1em;
 				height: 4em;
@@ -129,7 +129,7 @@ $loader-rgb: var(--#{$prefix}loader-rgb, $_loader-rgb);
 
 		.wp-ajaxify-loader__content {
 
-			>div {
+			> div {
 				position: relative;
 				width: 2.5em;
 				height: 2.5em;
@@ -182,7 +182,7 @@ $loader-rgb: var(--#{$prefix}loader-rgb, $_loader-rgb);
 
 		.wp-ajaxify-loader__content {
 
-			>div {
+			> div {
 				position: relative;
 				width: 10em;
 				height: 10em;
