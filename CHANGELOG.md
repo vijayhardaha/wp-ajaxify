@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 1.1.7 - Mar 08, 2024
+
+- Move plugin action link before the deactivate link.
+- Exclude "docs" directory from the build zip.
+
 ## Version 1.1.6 - Mar 08, 2024
 
 - Write the license name in a valid SPDX expression.
