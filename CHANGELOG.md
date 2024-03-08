@@ -1,6 +1,17 @@
 # CHANGELOG
 
-## Version 1.1.5 - Oct 11, 2022
+## Version 1.1.6 - Mar 08, 2024
+
+- Write license name in valid SPDX expression
+- Add package description
+- Remove unused npm-run-all dep
+- Write scripts with run-s
+- Bump dependencies to the latest versions
+- Enhance vscode settings
+- Enhance build zip bash script
+- Enhance build realse workflow
+
+## Version 1.1.5 - Oct 11, 2023
 
 - Improved the efficiency of absolute path checking by implementing a shorter method.
 - Enhanced code formatting by removing reliance on the prettier configuration.

@@ -1,7 +1,7 @@
 {
 	"name": "wp-ajaxify",
 	"description": "This is a simple plugin to easily implement Ajaxify.js in the WordPress.",
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"license": "GPL-2.0-or-later",
 	"author": "Vijay Hardaha <https://twitter.com/vijayhardaha>",
 	"homepage": "https://github.com/vijayhardaha/wp-ajaxify#readme",
